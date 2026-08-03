@@ -296,28 +296,40 @@
                             <label class="form-label">Semester</label>
                             <select class="form-select" name="semester" required>
                                 <option value="" selected disabled>Select Semester</option>
-                                <option value="5">Semester 5</option>
-                                <option value="6">Semester 6</option>
-                                <option value="7">Semester 7</option>
-                                <option value="8">Semester 8</option>
+                                <option value="1">Semester I</option>
+                                <option value="2">Semester II</option>
+                                <option value="3">Semester III</option>
+                                <option value="4">Semester IV</option>
+                                <option value="5">Semester V</option>
+                                <option value="6">Semester VI</option>
+                                <option value="7">Semester VII</option>
+                                <option value="8">Semester VIII</option>
                             </select>
                         </div>
 
                         <!-- DOB & Gender -->
-                        <div class="col-md-6">
-                            <label class="form-label">Date of Birth</label>
-                            <input type="date" class="form-control" name="dob" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Gender</label>
-                            <select class="form-select" name="gender" required>
-                                <option value="" selected disabled>Select Gender</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-
+                       <div class="col-md-6">
+    <label class="form-label">Date of Birth</label>
+    <input type="date" class="form-control" name="dob" required>
+</div>
+<div class="col-md-6">
+    <label class="form-label d-block">Gender</label>
+    
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="gender" id="genderMale" value="Male" required>
+        <label class="form-check-label" for="genderMale">Male</label>
+    </div>
+    
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="Female">
+        <label class="form-check-label" for="genderFemale">Female</label>
+    </div>
+    
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="gender" id="genderOther" value="Other">
+        <label class="form-check-label" for="genderOther">Other</label>
+    </div>
+</div>
                         <!-- Password & Confirm Password -->
                         <div class="col-md-6">
                             <label class="form-label">Password</label>
