@@ -84,7 +84,7 @@ body{background:#f5f7fc}
 
 <footer class="footer">
 <div class="container">
-<h5>? Campus Placement Portal</h5>
+<h5> <i class="fa-solid fa-graduation-cap"></i>Campus Placement Portal</h5>
 <p>Empowering students with career opportunities.</p>
 <p>© 2026 Campus Placement Portal | All Rights Reserved</p>
 </div>
