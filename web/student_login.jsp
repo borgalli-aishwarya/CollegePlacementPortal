@@ -38,10 +38,7 @@ body{background:#f5f7fc}
 <div class="collapse navbar-collapse" id="m">
 <ul class="navbar-nav ms-auto">
 <li class="nav-item"><a class="nav-link" href="index.jsp">Home</a></li>
-<li class="nav-item"><a class="nav-link" href="#">Jobs</a></li>
-<li class="nav-item"><a class="nav-link" href="#">Companies</a></li>
-<li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-<li class="nav-item ms-3"><a class="btn btn-light" href="studentRegister.jsp">Sign Up</a></li>
+
 </ul></div></div></nav>
 
 <section class="hero">
@@ -74,7 +71,7 @@ body{background:#f5f7fc}
 <a href="#">Forgot Password?</a>
 </div>
 <button class="btn-login">Login</button>
-<p class="text-center mt-3">Don't have an account? <a href="studentRegister.jsp">Register Now</a></p>
+<p class="text-center mt-3">Don't have an account? <a href="student_register.jsp">Register Now</a></p>
 </form>
 </div>
 </div>
@@ -86,7 +83,7 @@ body{background:#f5f7fc}
 <div class="container">
 <h5> <i class="fa-solid fa-graduation-cap"></i>Campus Placement Portal</h5>
 <p>Empowering students with career opportunities.</p>
-<p>© 2026 Campus Placement Portal | All Rights Reserved</p>
+<p>© 2026 Campus Placement Portal</p>
 </div>
 </footer>
 

@@ -215,18 +215,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="index.jsp">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Jobs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Companies</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-                    <li class="nav-item ms-2">
-                        <a href="studentLogin.jsp" class="btn signup-btn">Sign Up</a>
-                    </li>
+               
                 </ul>
             </div>
         </div>
@@ -364,7 +353,7 @@
                 </form>
 
                 <div class="login-link">
-                    Already have an account? <a href="studentLogin.jsp">Login Here</a>
+                    Already have an account? <a href="student_login.jsp">Login Here</a>
                 </div>
             </div>
         </div>
@@ -378,7 +367,7 @@
                 Campus Placement Portal
             </h5>
             <p class="footer-subtitle">Empowering students with career opportunities.</p>
-            <p class="copyright">© 2026 Campus Placement Portal | All Rights Reserved</p>
+            <p class="copyright">© 2026 Campus Placement Portal</p>
         </div>
     </footer>
 

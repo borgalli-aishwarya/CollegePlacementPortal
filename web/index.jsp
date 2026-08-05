@@ -32,51 +32,78 @@ p {
 }
 
 /* ================ NAVBAR ================ */
-.navbar {
-    background: linear-gradient(90deg, #3b4cb8, #4f32c2, #5a2eb8);
-    padding: 18px 0;
-    box-shadow: 0 5px 20px rgba(0,0,0,.12);
+   /*================ NAVBAR =================*/
+
+.navbar{
+    background:linear-gradient(90deg,#3F2B96,#6A11CB);
+    padding:18px 0;
+    box-shadow:0 4px 15px rgba(0,0,0,.15);
 }
-.navbar-brand {
-    display: flex;
-    align-items: center;
-    font-size: 32px; /* Adjusted slightly smaller to match image text-to-logo ratio */
-    font-weight: 700;
-    color: white !important;
+
+.navbar-brand{
+    display:flex;
+    align-items:center;
+    color:#fff!important;
+    font-size:28px;
+    font-weight:700;
 }
-.navbar-brand img {
-    width: 50px; /* Adjusted slightly to match image */
-    margin-right: 15px;
+
+.navbar-brand img{
+    width:52px;
+    height:52px;
+    margin-right:15px;
 }
-.nav-link {
-    color: white !important;
-    font-size: 17px; /* Matches image better */
-    margin-left: 20px;
-    font-weight: 500;
-    transition: .3s;
+
+.navbar-nav .nav-item{
+    margin-left:18px;
 }
-.nav-link:hover {
-    color: #ddd !important;
+
+.navbar-nav .nav-link{
+    color:#fff!important;
+    font-size:17px;
+    font-weight:600;
+    transition:.3s;
 }
-/* Login link color and icon from image */
-.nav-link.dropdown-toggle {
-    color: #ffd04b !important; /* Matches image yellow-orange login icon */
+
+.navbar-nav .nav-link:hover{
+    color:#FFD54F!important;
 }
-.nav-link.dropdown-toggle i {
-    margin-right: 8px;
+
+.fa-right-to-bracket{
+    color:#FFD54F;
+    margin-right:6px;
 }
-/* Sign Up Button - Transparent with white border as per image */
-.signup-btn {
-    border: 2px solid white;
-    background-color: transparent;
-    color: white;
-    padding: 10px 25px;
-    border-radius: 8px;
-    font-weight: 600;
+
+.dropdown-menu{
+    border:none;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
 }
-.signup-btn:hover {
-    background: white;
-    color: #3f51e8;
+
+.dropdown-item{
+    padding:12px 18px;
+    font-weight:500;
+}
+
+.dropdown-item:hover{
+    background:#f4f4f4;
+    color:#6A11CB;
+}
+
+.signup-btn{
+    border:2px solid white;
+    color:white!important;
+    padding:10px 28px;
+    border-radius:10px;
+    font-weight:600;
+    background:transparent;
+    transition:.3s;
+}
+
+.signup-btn:hover{
+    background:white;
+    color:#6A11CB!important;
 }
 
 /* ================ HERO ================ */
@@ -271,52 +298,117 @@ p {
     font-size: 14px;
     opacity: 0.6;
 }
+.footer{
+    width:100%;
+    background:linear-gradient(90deg,#3f51d7,#6b2bd3);
+    color:#fff;
+    text-align:center;
+    padding:35px 20px;
+    margin-top:50px;
+}
 
+.footer h3{
+    font-size:34px;
+    font-weight:700;
+    margin-bottom:12px;
+}
+
+.footer h3 i{
+    margin-right:8px;
+}
+
+.footer .tagline{
+    font-size:16px;
+    margin-bottom:18px;
+}
+
+.footer .copyright{
+    font-size:15px;
+    margin:0;
+}
 </style>
 </head>
 <body>
 <!-- Navbar Section -->
+<!-- ================= NAVBAR ================= -->
+
 <nav class="navbar navbar-expand-lg">
     <div class="container">
+
+        <!-- Logo -->
         <a class="navbar-brand" href="index.jsp">
-            <!-- Ensure path to logo.png is correct -->
-            <img src="<%=request.getContextPath()%>/images/logo.png" alt="Campus Placement Portal Logo">
+            <img src="<%=request.getContextPath()%>/images/logo.png" alt="Logo">
             Campus Placement Portal
         </a>
-        <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+
+        <!-- Mobile Toggle -->
+        <button class="navbar-toggler bg-white"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#menu"
+                aria-controls="menu"
+                aria-expanded="false">
+
             <span class="navbar-toggler-icon"></span>
+
         </button>
+
+        <!-- Menu -->
         <div class="collapse navbar-collapse" id="menu">
+
             <ul class="navbar-nav ms-auto align-items-center">
+
+                <!-- Home -->
                 <li class="nav-item">
                     <a class="nav-link" href="index.jsp">Home</a>
                 </li>
+
+                <!-- Jobs -->
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Jobs</a>
+                    <a class="nav-link" href="jobs.jsp">Jobs</a>
                 </li>
+
+                <!-- Companies -->
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Companies</a>
+                    <a class="nav-link" href="companies.jsp">Companies</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
-                </li>
+
+                <!-- Login -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="loginDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-right-to-bracket"></i>Login
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       id="loginDropdown"
+                       role="button"
+                       data-bs-toggle="dropdown">
+                        <i class="fa-solid fa-right-to-bracket"></i> Login
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="loginDropdown">
-                        <li><a class="dropdown-item" href="studentLogin.jsp">Student</a></li>
-                        <li><a class="dropdown-item" href="recruiterLogin.jsp">Recruiter</a></li>
-                        <li><a class="dropdown-item" href="adminLogin.jsp">Admin</a></li>
+
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="student_login.jsp">
+                                <i class="fa-solid fa-user-graduate me-2"></i> Student Login
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="recruiter_login.jsp">
+                                <i class="fa-solid fa-building me-2"></i> Recruiter Login
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="admin_Login.jsp">
+                                <i class="fa-solid fa-user-shield me-2"></i> Admin Login
+                            </a>
+                        </li>
                     </ul>
                 </li>
-                <li class="nav-item ms-3">
-                    <a href="register.jsp" class="btn signup-btn">Sign Up</a>
-                </li>
+
+               
+                
             </ul>
         </div>
     </div>
 </nav>
+
 
 <!-- Hero Section -->
 <section class="hero">
@@ -344,66 +436,71 @@ p {
 <section class="login-section">
     <div class="container">
         <h2 class="section-title">Login As</h2>
+
         <div class="row g-4">
+
             <!-- Student Card -->
             <div class="col-lg-4 col-md-6">
                 <div class="login-card student">
                     <i class="fa-solid fa-user-graduate"></i>
                     <h3>Student</h3>
-                    <p>Access your profile, browse job opportunities, apply to companies, upload your resume, and track your placement applications.</p>
-                    <a href="studentLogin.jsp" class="login-btn">Student Login</a>
+                    <p>
+                        Access your profile, browse job opportunities,
+                        apply to companies, upload your resume,
+                        and track your placement applications.
+                    </p>
+
+                    <a href="student_login.jsp" class="login-btn">
+                        Student Login
+                    </a>
                 </div>
             </div>
+
             <!-- Recruiter Card -->
             <div class="col-lg-4 col-md-6">
                 <div class="login-card recruiter">
                     <i class="fa-solid fa-building"></i>
                     <h3>Recruiter</h3>
-                    <p>Post new job openings, manage campus recruitment drives, shortlist students, and schedule interviews.</p>
-                    <a href="recruiterLogin.jsp" class="login-btn">Recruiter Login</a>
+                    <p>
+                        Post new job openings, manage campus recruitment drives,
+                        shortlist students, and schedule interviews.
+                    </p>
+
+                    <a href="recruiter_login.jsp" class="login-btn">
+                        Recruiter Login
+                    </a>
                 </div>
             </div>
+
             <!-- Admin Card -->
             <div class="col-lg-4 col-md-12">
                 <div class="login-card admin">
                     <i class="fa-solid fa-user-shield"></i>
                     <h3>Admin</h3>
-                    <p>Manage students, recruiters, companies, placement activities, reports, announcements, and portal settings.</p>
-                    <a href="adminLogin.jsp" class="login-btn">Admin Login</a>
+                    <p>
+                        Manage students, recruiters, companies,
+                        placement activities, reports,
+                        announcements, and portal settings.
+                    </p>
+
+                    <a href="admin_Login.jsp" class="login-btn">
+                        Admin Login
+                    </a>
                 </div>
             </div>
+
         </div>
     </div>
 </section>
-
 <!-- Footer -->
-<footer class="main-footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 mb-4 mb-lg-0">
-                <h3 class="footer-logo-title">Placement Portal</h3>
-                <p>Helping students achieve their dream careers by connecting them with top companies through a smart placement management system.</p>
-            </div>
-            <div class="col-lg-4 mb-4 mb-lg-0">
-                <h4>Quick Links</h4>
-                <ul class="list-unstyled">
-                    <li><a href="index.jsp" class="text-white text-decoration-none">Home</a></li>
-                    <li><a href="#" class="text-white text-decoration-none">Jobs</a></li>
-                    <li><a href="#" class="text-white text-decoration-none">Companies</a></li>
-                    <li><a href="#" class="text-white text-decoration-none">Contact</a></li>
-                </ul>
-            </div>
-            <div class="col-lg-4">
-                <h4>Contact Us</h4>
-                <p><i class="fa-solid fa-envelope"></i>placementportal@gmail.com</p>
-                <p><i class="fa-solid fa-phone"></i>+91 8086xxxxxx</p>
-               
-            </div>
-        </div>
-        <hr>
-        <p class="text-center mb-0">© 2026 College Placement Portal.</p>
-    </div>
+<footer class="footer">
+<div class="container">
+<h5> <i class="fa-solid fa-graduation-cap"></i>Campus Placement Portal</h5>
+<p>Empowering students with career opportunities.</p>
+<p>© 2026 Campus Placement Portal </p>
+</div>
 </footer>
+
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

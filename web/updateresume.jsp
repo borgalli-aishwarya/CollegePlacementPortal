@@ -24,17 +24,40 @@
 
 <!-- Header / Navbar -->
 <nav class="navbar navbar-expand-lg">
-<div class="container-fluid">
-<a class="navbar-brand fw-bold" href="index.jsp"><i class="fa-solid fa-graduation-cap"></i> Campus Placement Portal</a>
-<button class="navbar-toggler bg-light" data-bs-toggle="collapse" data-bs-target="#m"><span class="navbar-toggler-icon"></span></button>
-<div class="collapse navbar-collapse" id="m">
-<ul class="navbar-nav ms-auto">
-<li class="nav-item"><a class="nav-link" href="index.jsp">Home</a></li>
-<li class="nav-item"><a class="nav-link" href="jobs.jsp">Jobs</a></li>
-<li class="nav-item"><a class="nav-link" href="companies.jsp">Companies</a></li>
-<li class="nav-item"><a class="nav-link" href="contact.jsp">Contact</a></li>
-<li class="nav-item ms-3"><a class="btn btn-light" href="studentLogin.jsp">Logout</a></li>
-</ul></div></div></nav>
+    <div class="container-fluid">
+
+        <a class="navbar-brand fw-bold" href="studentDashboard.jsp">
+            <i class="fa-solid fa-graduation-cap"></i>
+            Campus Placement Portal
+        </a>
+
+        <button class="navbar-toggler bg-light" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="studentDashboard.jsp">
+                        <i class="fa-solid fa-house"></i> Home
+                    </a>
+                </li>
+
+              
+
+                
+
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
 
 <!-- Main Content -->
 <section class="resume-section">
@@ -55,7 +78,7 @@
 <div class="container-fluid">
 <h5><i class="fa-solid fa-graduation-cap"></i> Campus Placement Portal</h5>
 <p>Empowering students with career opportunities.</p>
-<p>© 2026 Campus Placement Portal | All Rights Reserved</p>
+<p>© 2026 Campus Placement Portal</p>
 </div>
 </footer>
 
