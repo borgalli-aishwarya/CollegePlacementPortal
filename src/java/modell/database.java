@@ -14,11 +14,11 @@ public class database {
         try {
 
             // Load MySQL Driver
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // Database Connection
+            // Connect to Database
             cn = DriverManager.getConnection(
-                    "jdbc:mysql://127.0.0.1:3306/college_placement",
+                    "jdbc:mysql://localhost:3306/college_placement?useSSL=false&serverTimezone=UTC",
                     "root",
                     "Aishu@1726"
             );
@@ -42,6 +42,10 @@ public class database {
 
         try {
 
+            if (cn == null) {
+                connectDB();
+            }
+
             st = cn.createStatement();
             st.executeUpdate(sql);
 
@@ -55,5 +59,4 @@ public class database {
         }
 
     }
-
 }

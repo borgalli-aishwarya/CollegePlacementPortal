@@ -1,65 +1,67 @@
 package student;
 
-import modell.database;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import modell.database;
 
 @WebServlet("/applyjobservlet")
 public class applyjobservlet extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
-
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request,
+            HttpServletResponse response)
             throws ServletException, IOException {
 
-        String jobId = request.getParameter("jobId");
-
         HttpSession session = request.getSession();
-        String studentEmail = (String) session.getAttribute("studentEmail");
 
-        // Create database object
-        database db = new database();
+        Integer studentId = (Integer) session.getAttribute("studentId");
 
-        Connection con = db.connectDB();
+        if (studentId == null) {
+            response.sendRedirect("student_login.jsp");
+            return;
+        }
 
-        if (con != null) {
+        int jobId = Integer.parseInt(request.getParameter("jobId"));
 
-            try {
+        try {
 
-                String sql = "INSERT INTO applications(job_id, student_email, status) VALUES(?,?,?)";
+            database db = new database();
+            Connection con = db.connectDB();
 
-                PreparedStatement ps = con.prepareStatement(sql);
+            String sql = "INSERT INTO applications(student_id,job_id,status) VALUES(?,?,?)";
 
-                ps.setInt(1, Integer.parseInt(jobId));
-                ps.setString(2, studentEmail);
-                ps.setString(3, "Pending");
+            PreparedStatement ps = con.prepareStatement(sql);
 
-                int rows = ps.executeUpdate();
+            ps.setInt(1, studentId);
+            ps.setInt(2, jobId);
+            ps.setString(3, "Applied");
 
-                if (rows > 0) {
-                    response.sendRedirect("studentDashboard.jsp?msg=Applied Successfully");
-                } else {
-                    response.sendRedirect("jobs.jsp?msg=Application Failed");
-                }
+            int i = ps.executeUpdate();
 
-                ps.close();
-                con.close();
+            if (i > 0) {
 
-            } catch (Exception e) {
+                response.sendRedirect("view_applications.jsp");
 
-                e.printStackTrace();
-                response.getWriter().println(e);
+            } else {
+
+                response.getWriter().println("Application Failed.");
 
             }
 
-        } else {
+            ps.close();
+            con.close();
 
-            response.getWriter().println("Database Connection Failed!");
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+            response.getWriter().println(ex.getMessage());
 
         }
 

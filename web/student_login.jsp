@@ -57,7 +57,7 @@ body{background:#f5f7fc}
 <div class="col-lg-5 offset-lg-1">
 <div class="card-login">
 <h3 class="text-center mb-3">Student Login</h3>
-<form action="StudentLoginServlet" method="post">
+<form action="studentloginservlet" method="post">
 <div class="mb-3">
 <label>Email</label>
 <div class="input-group"><span class="input-group-text"><i class="fa fa-envelope"></i></span>

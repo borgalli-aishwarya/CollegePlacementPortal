@@ -39,7 +39,7 @@
 <li class="nav-item"><a class="nav-link" href="#">Jobs</a></li>
 <li class="nav-item"><a class="nav-link" href="#">Students</a></li>
 <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-<li class="nav-item ms-3"><a class="btn btn-light" href="recruiterLogin.jsp">Login</a></li>
+<li class="nav-item ms-3"><a class="btn btn-light" href="recruiter_login.jsp">Login</a></li>
 </ul></div></div></nav>
 
 <section class="register-section">
@@ -48,16 +48,16 @@
 <div class="col-lg-8">
 <div class="card-register">
 <h3 class="text-center mb-4">Recruiter Registration</h3>
-<form action="RecruiterRegisterServlet" method="post" enctype="multipart/form-data">
+<form action="RecruiterRegisterServlet" method="post" class="row g-3">
 
 <div class="mb-3">
 <label>Company Name</label>
-<input class="form-control" type="text" name="companyName" required>
+<input class="form-control" type="text" name="company" required>
 </div>
 
 <div class="mb-3">
 <label>HR Contact Person</label>
-<input class="form-control" type="text" name="hrName" required>
+<input class="form-control" type="text" name="hr" required>
 </div>
 
 <div class="mb-3">
@@ -72,7 +72,7 @@
 
 <div class="mb-3">
 <label>Job Title</label>
-<input class="form-control" type="text" name="jobTitle">
+<input class="form-control" type="text" name="jobtitle">
 </div>
 
 <div class="mb-3">
@@ -107,18 +107,12 @@
 </div>
 </div>
 
-<div class="mb-3">
-<label>Upload Company Logo</label>
-<input class="form-control" type="file" name="logo">
-</div>
 
-<div class="form-check mb-3">
-<input class="form-check-input" type="checkbox" name="terms" required>
-<label class="form-check-label">I agree to the Terms & Conditions and Privacy Policy</label>
-</div>
 
-<button class="btn-register">Create Account</button>
-<p class="text-center mt-3">Already have an account? <a href="recruiterLogin.jsp">Login Here</a></p>
+<button type="submit" class="btn-register">
+    Create Account
+</button>
+<p class="text-center mt-3">Already have an account? <a href="recruiter_login.jsp">Login Here</a></p>
 
 </form>
 </div>
@@ -131,7 +125,7 @@
 <div class="container">
 <h5><i class="fa-solid fa-graduation-cap"></i> Campus Placement Portal</h5>
 <p>Empowering recruiters to hire top talent.</p>
-<p>© 2028 Campus Placement Portal | All Rights Reserved</p>
+<p>© 2028 Campus Placement Portal</p>
 </div>
 </footer>
 

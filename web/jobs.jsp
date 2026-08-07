@@ -2,200 +2,287 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 
+<%
+Integer studentId = (Integer) session.getAttribute("studentId");
+
+if(studentId == null){
+    response.sendRedirect("student_login.jsp");
+    return;
+}
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Jobs - Campus Placement Portal</title>
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<meta charset="UTF-8">
 
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<title>Jobs | Campus Placement Portal</title>
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <style>
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-        body{
-            background:#f8f9fa;
-        }
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-        .navbar{
-            background:linear-gradient(135deg,#5d73f8,#6a11cb);
-        }
+<style>
 
-        .navbar-brand{
-            color:#fff!important;
-            font-weight:bold;
-        }
+body{
+background:#f5f7fc;
+font-family:Poppins,sans-serif;
+}
 
-        .navbar .nav-link{
-            color:#fff!important;
-            font-weight:500;
-        }
+.navbar{
+background:linear-gradient(90deg,#3b4cb8,#4f32c2,#5a2eb8);
+}
 
-        .job-card{
-            border:none;
-            border-radius:12px;
-            box-shadow:0 5px 15px rgba(0,0,0,.15);
-            margin-bottom:25px;
-            transition:.3s;
-        }
+.navbar-brand,
+.nav-link{
+color:#fff!important;
+}
 
-        .job-card:hover{
-            transform:translateY(-5px);
-        }
+.job-card{
+border:none;
+border-radius:15px;
+box-shadow:0 10px 20px rgba(0,0,0,.12);
+margin-bottom:25px;
+transition:.3s;
+}
 
-        .footer{
-            background:linear-gradient(135deg,#5d73f8,#6a11cb);
-            color:#fff;
-            text-align:center;
-            padding:25px;
-            margin-top:50px;
-        }
+.job-card:hover{
+transform:translateY(-5px);
+}
 
-        .footer h5{
-            font-weight:bold;
-        }
+.footer{
+background:linear-gradient(90deg,#3b4cb8,#4f32c2,#5a2eb8);
+color:#fff;
+padding:25px;
+text-align:center;
+margin-top:40px;
+}
 
-    </style>
+</style>
 
 </head>
 
 <body>
 
-<!-- Navbar -->
-
 <nav class="navbar navbar-expand-lg">
 
-    <div class="container">
+<div class="container">
 
-        <a class="navbar-brand" href="index.jsp">
-            <i class="bi bi-mortarboard-fill"></i>
-            Campus Placement Portal
-        </a>
+<a class="navbar-brand fw-bold"
+href="studentDashboard.jsp">
 
-        <ul class="navbar-nav ms-auto">
+<i class="fa-solid fa-graduation-cap"></i>
 
-            <li class="nav-item">
-                <a class="nav-link" href="studentDashboard.jsp">Home</a>
-            </li>
+Campus Placement Portal
 
-            
+</a>
 
-        </ul>
+<ul class="navbar-nav ms-auto">
 
-    </div>
+<li class="nav-item">
+<a class="nav-link"
+href="studentDashboard.jsp">
+
+Dashboard
+
+</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link active"
+href="jobs.jsp">
+
+Jobs
+
+</a>
+</li>
+
+<li class="nav-item ms-3">
+<a class="btn btn-light"
+href="index.jsp">
+
+Logout
+
+</a>
+</li>
+
+</ul>
+
+</div>
 
 </nav>
 
-<!-- Database Connection -->
-
 <sql:setDataSource
-        var="db"
-        driver="com.mysql.cj.jdbc.Driver"
-        url="jdbc:mysql://localhost:3306/college_placement?useSSL=false&serverTimezone=UTC"
-        user="root"
-        password="Aishu@1726"/>
 
-<!-- Fetch Jobs -->
+var="db"
+
+driver="com.mysql.cj.jdbc.Driver"
+
+url="jdbc:mysql://localhost:3306/college_placement?useSSL=false&serverTimezone=UTC"
+
+user="root"
+
+password="Aishu@1726"/>
 
 <sql:query var="result" dataSource="${db}">
-    SELECT * FROM jobs;
+
+SELECT * FROM jobs;
+
 </sql:query>
 
 <div class="container mt-5">
 
-    <h2 class="text-center text-primary mb-4">
-        Available Jobs
-    </h2>
+<h2 class="text-center text-primary mb-4">
 
-    <c:choose>
+Available Jobs
 
-        <c:when test="${empty result.rows}">
+</h2>
 
-            <div class="alert alert-warning text-center">
-                No jobs available.
-            </div>
+<c:choose>
 
-        </c:when>
+<c:when test="${empty result.rows}">
 
-        <c:otherwise>
+<div class="alert alert-warning text-center">
 
-            <c:forEach var="row" items="${result.rows}">
-
-                <div class="card job-card">
-
-                    <div class="card-body">
-
-                        <h4>${row.title}</h4>
-
-                        <h6 class="text-muted">
-                            ${row.company}
-                        </h6>
-
-                        <p>
-                            <b>Role :</b>
-                            ${row.roleType}
-                        </p>
-
-                        <p>
-                            <b>Requirements :</b>
-                            ${row.requirements}
-                        </p>
-
-                        <p>
-                            <b>Skills :</b>
-                            ${row.skills}
-                        </p>
-
-                        <a href="applyjob.jsp?id=${row.id}"
-                           class="btn btn-primary">
-                            Apply Now
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </c:forEach>
-
-        </c:otherwise>
-
-    </c:choose>
+No Jobs Available
 
 </div>
 
-<!-- Footer -->
+</c:when>
+
+<c:otherwise>
+
+<c:forEach var="row" items="${result.rows}">
+
+<div class="card job-card">
+
+<div class="card-body">
+
+<h3>${row.title}</h3>
+
+<h5 class="text-muted">
+
+${row.company}
+
+</h5>
+
+<hr>
+
+<p>
+
+<b>Role :</b>
+
+${row.role_type}
+
+</p>
+
+<p>
+
+<b>Requirements :</b>
+
+${row.requirements}
+
+</p>
+
+<p>
+
+<b>Technical Skills :</b>
+
+${row.technical_skills}
+
+</p>
+
+<p>
+
+<b>Duration :</b>
+
+${row.duration_months} Months
+
+</p>
+
+<p>
+
+<b>Salary / Stipend :</b>
+
+${row.stipend_salary}
+
+</p>
+
+<p>
+
+<b>Last Date :</b>
+
+${row.deadline}
+
+</p>
+
+<form action="applyjobservlet"
+method="post">
+
+<input
+type="hidden"
+name="jobId"
+value="${row.id}">
+
+<button
+type="submit"
+class="btn btn-primary">
+
+<i class="fa-solid fa-paper-plane"></i>
+
+Apply Now
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</c:forEach>
+
+</c:otherwise>
+
+</c:choose>
+
+</div>
 
 <footer class="footer">
 
-    <div class="container">
+<div class="container">
 
-        <h5>
-            <i class="fa-solid fa-graduation-cap"></i>
-            Campus Placement Portal
-        </h5>
+<h5>
 
-        <p>
-            Empowering students with career opportunities.
-        </p>
+<i class="fa-solid fa-graduation-cap"></i>
 
-        <p>
-            © 2026 Campus Placement Portal 
-        </p>
+Campus Placement Portal
 
-    </div>
+</h5>
+
+<p>
+
+Empowering students with career opportunities.
+
+</p>
+
+<p>
+
+© 2026 Campus Placement Portal
+
+</p>
+
+</div>
 
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>

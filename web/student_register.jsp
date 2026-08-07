@@ -228,129 +228,129 @@
                 <h3><i class="fa-solid fa-user-plus me-2" style="color: #4f32c2;"></i>Student Registration</h3>
                 <p class="register-subtitle">Create your account to access campus placement opportunities.</p>
 
-                <form action="RegisterServlet" method="POST" enctype="multipart/form-data">
-                    <div class="row g-3">
-                        <!-- Full Name & Email -->
-                        <div class="col-md-6">
-                            <label class="form-label">Full Name</label>
-                            <input type="text" class="form-control" name="fullName" placeholder="Enter Full Name" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Email Address</label>
-                            <input type="email" class="form-control" name="email" placeholder="Enter Email Address" required>
-                        </div>
+                <form action="StudentRegisterServlet" method="post" class="row g-3">
 
-                        <!-- Mobile & PRN -->
-                        <div class="col-md-6">
-                            <label class="form-label">Mobile Number</label>
-                            <input type="tel" class="form-control" name="mobile" placeholder="Enter Mobile Number" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">PRN / Roll Number</label>
-                            <input type="text" class="form-control" name="prn" placeholder="Enter PRN Number" required>
-                        </div>
-
-                        <!-- College & Branch -->
-                        <div class="col-md-6">
-                            <label class="form-label">College</label>
-                            <select class="form-select" name="college" required>
-                                <option value="" selected disabled>Select College</option>
-                                <option value="College of Engineering">College of Engineering</option>
-                                <option value="Institute of Technology">Institute of Technology</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Branch</label>
-                            <select class="form-select" name="branch" required>
-                                <option value="" selected disabled>Select Branch</option>
-                                <option value="CSE">Computer Science & Engg.</option>
-                                <option value="IT">Information Technology</option>
-                                <option value="ECE">Electronics & Comm.</option>
-                                <option value="MECH">Mechanical Engg.</option>
-                            </select>
-                        </div>
-
-                        <!-- Year & Semester -->
-                        <div class="col-md-6">
-                            <label class="form-label">Year</label>
-                            <select class="form-select" name="year" required>
-                                <option value="" selected disabled>Select Year</option>
-                                <option value="FE">First Year (FE)</option>
-                                <option value="SE">Second Year (SE)</option>
-                                <option value="TE">Third Year (TE)</option>
-                                <option value="BE">Final Year (BE)</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Semester</label>
-                            <select class="form-select" name="semester" required>
-                                <option value="" selected disabled>Select Semester</option>
-                                <option value="1">Semester I</option>
-                                <option value="2">Semester II</option>
-                                <option value="3">Semester III</option>
-                                <option value="4">Semester IV</option>
-                                <option value="5">Semester V</option>
-                                <option value="6">Semester VI</option>
-                                <option value="7">Semester VII</option>
-                                <option value="8">Semester VIII</option>
-                            </select>
-                        </div>
-
-                        <!-- DOB & Gender -->
-                       <div class="col-md-6">
-    <label class="form-label">Date of Birth</label>
-    <input type="date" class="form-control" name="dob" required>
-</div>
-<div class="col-md-6">
-    <label class="form-label d-block">Gender</label>
-    
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="gender" id="genderMale" value="Male" required>
-        <label class="form-check-label" for="genderMale">Male</label>
+    <!-- Full Name -->
+    <div class="col-md-6">
+        <label class="form-label">Full Name</label>
+        <input type="text" class="form-control" name="name" placeholder="Enter Full Name" required>
     </div>
-    
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="Female">
-        <label class="form-check-label" for="genderFemale">Female</label>
+
+    <!-- Email -->
+    <div class="col-md-6">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-control" name="email" placeholder="Enter Email Address" required>
     </div>
-    
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="gender" id="genderOther" value="Other">
-        <label class="form-check-label" for="genderOther">Other</label>
+
+    <!-- Mobile -->
+    <div class="col-md-6">
+        <label class="form-label">Mobile Number</label>
+        <input type="tel" class="form-control" name="mobile" placeholder="Enter Mobile Number" required>
     </div>
-</div>
-                        <!-- Password & Confirm Password -->
-                        <div class="col-md-6">
-                            <label class="form-label">Password</label>
-                            <input type="password" class="form-control" name="password" placeholder="Create Password" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm Password" required>
-                        </div>
 
-                        <!-- Resume Upload -->
-                        <div class="col-12">
-                            <label class="form-label">Upload Resume (PDF)</label>
-                            <input type="file" class="form-control" name="resume" accept=".pdf" required>
-                        </div>
+    <!-- PRN -->
+    <div class="col-md-6">
+        <label class="form-label">PRN / Roll Number</label>
+        <input type="text" class="form-control" name="prn" placeholder="Enter PRN Number" required>
+    </div>
 
-                        <!-- Terms Checkbox -->
-                        <div class="col-12 mt-2">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="terms" required>
-                                <label class="form-check-label text-secondary" style="font-size: 13px;" for="terms">
-                                    I agree to the Terms & Conditions and confirm all details are accurate.
-                                </label>
-                            </div>
-                        </div>
+    <!-- College -->
+    <div class="col-md-6">
+        <label class="form-label">College</label>
+        <select class="form-select" name="college" required>
+            <option value="">Select College</option>
+            <option value="College of Engineering">College of Engineering</option>
+            <option value="Institute of Technology">Institute of Technology</option>
+        </select>
+    </div>
 
-                        <!-- Submit Button -->
-                        <div class="col-12 mt-3">
-                            <button type="submit" class="btn btn-register-submit">Create Account</button>
-                        </div>
-                    </div>
-                </form>
+    <!-- Branch -->
+    <div class="col-md-6">
+        <label class="form-label">Branch</label>
+        <select class="form-select" name="branch" required>
+            <option value="">Select Branch</option>
+            <option value="CSE">Computer Science & Engineering</option>
+            <option value="IT">Information Technology</option>
+            <option value="ECE">Electronics & Communication</option>
+            <option value="MECH">Mechanical Engineering</option>
+        </select>
+    </div>
+
+    <!-- Year -->
+    <div class="col-md-6">
+        <label class="form-label">Year</label>
+        <select class="form-select" name="year" required>
+            <option value="1">First Year (FE)</option>
+<option value="2">Second Year (SE)</option>
+<option value="3">Third Year (TE)</option>
+<option value="4">Final Year (BE)</option>
+        </select>
+    </div>
+
+    <!-- Semester -->
+    <div class="col-md-6">
+        <label class="form-label">Semester</label>
+        <select class="form-select" name="semester" required>
+            <option value="">Select Semester</option>
+            <option value="1">Semester I</option>
+            <option value="2">Semester II</option>
+            <option value="3">Semester III</option>
+            <option value="4">Semester IV</option>
+            <option value="5">Semester V</option>
+            <option value="6">Semester VI</option>
+            <option value="7">Semester VII</option>
+            <option value="8">Semester VIII</option>
+        </select>
+    </div>
+
+    <!-- DOB -->
+    <div class="col-md-6">
+        <label class="form-label">Date of Birth</label>
+        <input type="date" class="form-control" name="dob" required>
+    </div>
+
+    <!-- Gender -->
+    <div class="col-md-6">
+        <label class="form-label d-block">Gender</label>
+
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" value="Male" required>
+            <label class="form-check-label">Male</label>
+        </div>
+
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" value="Female">
+            <label class="form-check-label">Female</label>
+        </div>
+
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" value="Other">
+            <label class="form-check-label">Other</label>
+        </div>
+    </div>
+
+    <!-- Password -->
+    <div class="col-md-6">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-control" name="password" placeholder="Create Password" required>
+    </div>
+
+    <!-- Confirm Password -->
+    <div class="col-md-6">
+        <label class="form-label">Confirm Password</label>
+        <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm Password" required>
+    </div>
+
+  
+
+    <!-- Submit -->
+    <div class="col-12">
+        <button type="submit" class="btn btn-register-submit">
+            Create Account
+        </button>
+    </div>
+
+</form>
 
                 <div class="login-link">
                     Already have an account? <a href="student_login.jsp">Login Here</a>

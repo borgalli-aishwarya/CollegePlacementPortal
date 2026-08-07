@@ -58,7 +58,7 @@
 <div class="col-lg-5 offset-lg-1">
 <div class="card-login">
 <h3 class="text-center mb-3">Recruiter Login</h3>
-<form action="RecruiterLoginServlet" method="post">
+<form action="recruiterloginservlet" method="post">
 <div class="mb-3">
 <label>Email</label>
 <div class="input-group"><span class="input-group-text"><i class="fa fa-envelope"></i></span>
@@ -71,8 +71,10 @@
 <div><input type="checkbox"> Remember Me</div>
 <a href="#">Forgot Password?</a>
 </div>
-<button class="btn-login">Login</button>
-<p class="text-center mt-3">Don’t have an account? <a href="recruiterRegister.jsp">Register Here</a></p>
+<button type="submit" class="btn btn-primary w-100">
+    Login
+</button>
+<p class="text-center mt-3">Don’t have an account? <a href="recruiter_Register.jsp">Register Here</a></p>
 </form>
 </div>
 </div>

@@ -1,4 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<%
+String studentName = (String) session.getAttribute("studentName");
+
+if(studentName == null){
+    response.sendRedirect("student_login.jsp");
+    return;
+}
+%>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -157,9 +170,7 @@ margin-top:auto;
 <div class="welcome-box">
 
 <h2 class="fw-bold">
-
-Welcome, Student 👋
-
+    Welcome, <%= studentName %> 👋
 </h2>
 
 <p class="text-muted mt-3">
