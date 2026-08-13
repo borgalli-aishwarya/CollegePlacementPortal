@@ -13,17 +13,15 @@ public class database {
 
         try {
 
-            // Load MySQL Driver
+            // MySQL JDBC Driver
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // Connect to Database
+            // Database connection
             cn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/college_placement?useSSL=false&serverTimezone=UTC",
+                    "jdbc:mysql://127.0.0.1:3306/college_placement?useSSL=false&serverTimezone=UTC",
                     "root",
                     "Aishu@1726"
             );
-
-            st = cn.createStatement();
 
             System.out.println("Database Connected Successfully");
 
@@ -31,18 +29,18 @@ public class database {
 
         } catch (Exception ex) {
 
+            System.out.println("Database Connection Failed");
             ex.printStackTrace();
+
             return null;
-
         }
-
     }
 
     public String Query(String sql, String message) {
 
         try {
 
-            if (cn == null) {
+            if (cn == null || cn.isClosed()) {
                 connectDB();
             }
 
@@ -54,9 +52,8 @@ public class database {
         } catch (Exception ex) {
 
             ex.printStackTrace();
+
             return ex.getMessage();
-
         }
-
     }
 }

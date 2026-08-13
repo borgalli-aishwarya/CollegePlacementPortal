@@ -1,77 +1,96 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java"
+         contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
 
 <%
 String companyName = (String) session.getAttribute("companyName");
 
-if(companyName == null){
+if (companyName == null) {
     response.sendRedirect("recruiterLogin.jsp");
     return;
 }
 %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>Post Job | Campus Placement Portal</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet">
 
 <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet">
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Poppins,sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
-html,body{
-height:100%;
-display:flex;
-flex-direction:column;
+html,
+body {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
-body{
-background:#f5f7fc;
+body {
+    background: #f5f7fc;
 }
 
 .navbar,
-.footer{
-background:linear-gradient(90deg,#3b4cb8,#4f32c2,#5a2eb8);
+.footer {
+    background: linear-gradient(90deg, #3b4cb8, #4f32c2, #5a2eb8);
 }
 
 .navbar-brand,
-.nav-link{
-color:#fff!important;
+.nav-link {
+    color: #fff !important;
 }
 
-.nav-link{
-margin-left:18px;
-font-weight:500;
+.nav-link {
+    margin-left: 18px;
+    font-weight: 500;
 }
 
-.main-section{
-flex:1;
-padding:50px 0;
+.main-section {
+    flex: 1;
+    padding: 50px 0;
 }
 
-.card{
-border:none;
-border-radius:15px;
-box-shadow:0 10px 25px rgba(0,0,0,.12);
+.job-card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
 }
 
-.footer{
-color:#fff;
-padding:25px 0;
-text-align:center;
-margin-top:auto;
+.form-label {
+    font-weight: 500;
+}
+
+.form-control,
+.form-select {
+    border-radius: 8px;
+    min-height: 45px;
+}
+
+.footer {
+    color: #fff;
+    padding: 25px 0;
+    text-align: center;
+    margin-top: auto;
 }
 
 </style>
@@ -80,264 +99,322 @@ margin-top:auto;
 
 <body>
 
-<!-- Navbar -->
+<!-- NAVBAR -->
 
 <nav class="navbar navbar-expand-lg">
 
-<div class="container-fluid">
+    <div class="container-fluid">
 
-<a class="navbar-brand fw-bold" href="recruiterDashboard.jsp">
+        <a class="navbar-brand fw-bold"
+           href="recruiterDashboard.jsp">
 
-<i class="fa-solid fa-graduation-cap"></i>
+            <i class="fa-solid fa-graduation-cap"></i>
+            Campus Placement Portal
 
-Campus Placement Portal
+        </a>
 
-</a>
+        <button class="navbar-toggler bg-light"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
 
-<button class="navbar-toggler bg-light"
-type="button"
-data-bs-toggle="collapse"
-data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
 
-<span class="navbar-toggler-icon"></span>
+        </button>
 
-</button>
+        <div class="collapse navbar-collapse"
+             id="navbarNav">
 
-<div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
 
-<ul class="navbar-nav ms-auto">
+                <li class="nav-item">
 
-<li class="nav-item">
-<a class="nav-link" href="recruiterDashboard.jsp">
-<i class="fa-solid fa-house"></i>
-Dashboard
-</a>
-</li>
+                    <a class="nav-link"
+                       href="recruiterDashboard.jsp">
 
-<li class="nav-item">
-<a class="nav-link active" href="posts.jsp">
-<i class="fa-solid fa-plus"></i>
-Post Job
-</a>
-</li>
+                        <i class="fa-solid fa-house"></i>
+                        Dashboard
 
-<li class="nav-item ms-3">
-<a class="btn btn-light" href="index.jsp">
-<i class="fa-solid fa-right-from-bracket"></i>
-Logout
-</a>
-</li>
+                    </a>
 
-</ul>
+                </li>
 
-</div>
+                <li class="nav-item">
 
-</div>
+                    <a class="nav-link active"
+                       href="posts.jsp">
+
+                        <i class="fa-solid fa-plus"></i>
+                        Post Job
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="managejobs.jsp">
+
+                        <i class="fa-solid fa-briefcase"></i>
+                        Manage Jobs
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item ms-3">
+
+                    <a class="btn btn-light"
+                       href="index.jsp">
+
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        Logout
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
 
 </nav>
 
-<!-- Main -->
+
+<!-- MAIN SECTION -->
 
 <section class="main-section">
 
-<div class="container">
+    <div class="container">
 
-<div class="row justify-content-center">
+        <div class="row justify-content-center">
 
-<div class="col-lg-8">
+            <div class="col-lg-8">
 
-<div class="card">
+                <div class="card job-card">
 
-<div class="card-body p-5">
+                    <div class="card-body p-5">
 
-<h2 class="text-center text-primary mb-4">
+                        <h2 class="text-center text-primary mb-4">
 
-<i class="fa-solid fa-briefcase"></i>
+                            <i class="fa-solid fa-briefcase"></i>
 
-Post New Job
+                            Post New Job
 
-</h2>
+                        </h2>
 
-<form action="PostJobServlet" method="post">
 
-<div class="mb-3">
+                        <form action="PostJobServlet"
+                              method="post">
 
-<label class="form-label">Job Title</label>
 
-<input type="text"
-class="form-control"
-name="title"
-required>
+                            <!-- JOB TITLE -->
 
-</div>
+                            <div class="mb-3">
 
-<div class="mb-3">
+                                <label class="form-label">
+                                    Job Title
+                                </label>
 
-<label class="form-label">Company Name</label>
+                                <input type="text"
+                                       class="form-control"
+                                       name="title"
+                                       placeholder="Example: Java Developer"
+                                       required>
 
-<input type="text"
-class="form-control"
-value="<%= companyName %>"
-readonly>
+                            </div>
 
-</div>
 
-<div class="mb-3">
+                            <!-- COMPANY NAME -->
 
-<label class="form-label">Role Type</label>
+                            <div class="mb-3">
 
-<select class="form-select"
-name="roleType"
-required>
+                                <label class="form-label">
+                                    Company Name
+                                </label>
 
-<option value="">Select Role</option>
+                                <input type="text"
+                                       class="form-control"
+                                       name="company"
+                                       value="<%= companyName %>"
+                                       readonly>
 
-<option value="Internship">Internship</option>
+                            </div>
 
-<option value="Job">Job</option>
 
-</select>
+                            <!-- ROLE TYPE -->
 
-</div>
+                            <div class="mb-3">
 
-<div class="mb-3">
+                                <label class="form-label">
+                                    Role Type
+                                </label>
 
-<label class="form-label">
+                                <select class="form-select"
+                                        name="roleType"
+                                        required>
 
-Requirements
+                                    <option value="">
+                                        Select Role
+                                    </option>
 
-</label>
+                                    <option value="Internship">
+                                        Internship
+                                    </option>
 
-<textarea
-class="form-control"
-name="requirements"
-rows="4"
-required></textarea>
+                                    <option value="Job">
+                                        Job
+                                    </option>
 
-</div>
+                                </select>
 
-<div class="mb-3">
+                            </div>
 
-<label class="form-label">
 
-Technical Skills
+                            <!-- REQUIREMENTS -->
 
-</label>
+                            <div class="mb-3">
 
-<textarea
-class="form-control"
-name="technicalSkills"
-rows="3"
-required></textarea>
+                                <label class="form-label">
+                                    Requirements
+                                </label>
 
-</div>
+                                <textarea class="form-control"
+                                          name="requirements"
+                                          rows="4"
+                                          placeholder="Example: Graduate with good communication skills"
+                                          required></textarea>
 
-<div class="row">
+                            </div>
 
-<div class="col-md-6 mb-3">
 
-<label class="form-label">
+                            <!-- TECHNICAL SKILLS -->
 
-Duration (Months)
+                            <div class="mb-3">
 
-</label>
+                                <label class="form-label">
+                                    Technical Skills
+                                </label>
 
-<input
-type="number"
-class="form-control"
-name="duration">
+                                <textarea class="form-control"
+                                          name="technicalSkills"
+                                          rows="3"
+                                          placeholder="Example: Java, SQL, HTML, CSS"
+                                          required></textarea>
 
-</div>
+                            </div>
 
-<div class="col-md-6 mb-3">
 
-<label class="form-label">
+                            <!-- DURATION + SALARY -->
 
-Salary / Stipend
+                            <div class="row">
 
-</label>
+                                <div class="col-md-6 mb-3">
 
-<input
-type="text"
-class="form-control"
-name="salary"
-required>
+                                    <label class="form-label">
+                                        Duration (Months)
+                                    </label>
 
-</div>
+                                    <input type="number"
+                                           class="form-control"
+                                           name="duration"
+                                           min="1"
+                                           placeholder="Example: 6">
 
-</div>
+                                </div>
 
-<div class="mb-4">
 
-<label class="form-label">
+                                <div class="col-md-6 mb-3">
 
-Application Deadline
+                                    <label class="form-label">
+                                        Salary / Stipend
+                                    </label>
 
-</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="salary"
+                                           placeholder="Example: ₹25,000/month"
+                                           required>
 
-<input
-type="date"
-class="form-control"
-name="deadline"
-required>
+                                </div>
 
-</div>
+                            </div>
 
-<button
-type="submit"
-class="btn btn-primary w-100">
 
-<i class="fa-solid fa-paper-plane"></i>
+                            <!-- DEADLINE -->
 
-Post Job
+                            <div class="mb-4">
 
-</button>
+                                <label class="form-label">
+                                    Application Deadline
+                                </label>
 
-</form>
+                                <input type="date"
+                                       class="form-control"
+                                       name="deadline"
+                                       required>
 
-</div>
+                            </div>
 
-</div>
 
-</div>
+                            <!-- SUBMIT -->
 
-</div>
+                            <button type="submit"
+                                    class="btn btn-primary w-100">
 
-</div>
+                                <i class="fa-solid fa-paper-plane"></i>
+
+                                Post Job
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </section>
 
-<!-- Footer -->
+
+<!-- FOOTER -->
 
 <footer class="footer">
 
-<div class="container">
+    <div class="container">
 
-<h5>
+        <h5>
 
-<i class="fa-solid fa-graduation-cap"></i>
+            <i class="fa-solid fa-graduation-cap"></i>
 
-Campus Placement Portal
+            Campus Placement Portal
 
-</h5>
+        </h5>
 
-<p>
+        <p>
+            Empowering recruiters to hire talented students.
+        </p>
 
-Empowering recruiters to hire talented students.
+        <p>
+            © 2026 Campus Placement Portal
+        </p>
 
-</p>
-
-<p>
-
-© 2026 Campus Placement Portal
-
-</p>
-
-</div>
+    </div>
 
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
 
 </body>
 

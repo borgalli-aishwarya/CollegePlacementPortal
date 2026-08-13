@@ -337,74 +337,89 @@ p {
 
         <!-- Logo -->
         <a class="navbar-brand" href="index.jsp">
-            <img src="<%=request.getContextPath()%>/images/logo.png" alt="Logo">
+            <img src="<%=request.getContextPath()%>/images/logo.png"
+                 alt="Logo">
             Campus Placement Portal
         </a>
 
-        <!-- Mobile Toggle -->
         <button class="navbar-toggler bg-white"
                 type="button"
                 data-bs-toggle="collapse"
-                data-bs-target="#menu"
-                aria-controls="menu"
-                aria-expanded="false">
+                data-bs-target="#menu">
 
             <span class="navbar-toggler-icon"></span>
-
         </button>
 
-        <!-- Menu -->
         <div class="collapse navbar-collapse" id="menu">
 
             <ul class="navbar-nav ms-auto align-items-center">
 
                 <!-- Home -->
                 <li class="nav-item">
-                    <a class="nav-link" href="index.jsp">Home</a>
+                    <a class="nav-link" href="index.jsp">
+                        <i class="fa-solid fa-house"></i>
+                        Home
+                    </a>
                 </li>
 
                 <!-- Jobs -->
                 <li class="nav-item">
-                    <a class="nav-link" href="jobs.jsp">Jobs</a>
+                    <a class="nav-link" href="jobs.jsp">
+                        <i class="fa-solid fa-briefcase"></i>
+                        Jobs
+                    </a>
                 </li>
 
                 <!-- Companies -->
                 <li class="nav-item">
-                    <a class="nav-link" href="companies.jsp">Companies</a>
+                    <a class="nav-link" href="companies.jsp">
+                        <i class="fa-solid fa-building"></i>
+                        Companies
+                    </a>
                 </li>
 
                 <!-- Login -->
                 <li class="nav-item dropdown">
+
                     <a class="nav-link dropdown-toggle"
                        href="#"
-                       id="loginDropdown"
-                       role="button"
                        data-bs-toggle="dropdown">
-                        <i class="fa-solid fa-right-to-bracket"></i> Login
+
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        Login
                     </a>
 
                     <ul class="dropdown-menu">
+
                         <li>
-                            <a class="dropdown-item" href="student_login.jsp">
-                                <i class="fa-solid fa-user-graduate me-2"></i> Student Login
+                            <a class="dropdown-item"
+                               href="student_login.jsp">
+                                <i class="fa-solid fa-user-graduate me-2"></i>
+                                Student Login
                             </a>
                         </li>
+
                         <li>
-                            <a class="dropdown-item" href="recruiter_login.jsp">
-                                <i class="fa-solid fa-building me-2"></i> Recruiter Login
+                            <a class="dropdown-item"
+                               href="recruiter_login.jsp">
+                                <i class="fa-solid fa-building me-2"></i>
+                                Recruiter Login
                             </a>
                         </li>
+
                         <li>
-                            <a class="dropdown-item" href="admin_Login.jsp">
-                                <i class="fa-solid fa-user-shield me-2"></i> Admin Login
+                            <a class="dropdown-item"
+                               href="admin_Login.jsp">
+                                <i class="fa-solid fa-user-shield me-2"></i>
+                                Admin Login
                             </a>
                         </li>
+
                     </ul>
                 </li>
 
-               
-                
             </ul>
+
         </div>
     </div>
 </nav>
@@ -416,7 +431,7 @@ p {
         <div class="row align-items-center">
             <!-- Left Side -->
             <div class="col-lg-6">
-                <h1>Welcome to College<br>Placement Portal</h1>
+                <h1>Welcome to Campus<br>Placement Portal</h1>
                 <p>Connecting talented students with leading companies for successful career opportunities.</p>
                 <div class="hero-btns-container">
                     <a href="#" class="btn btn-start">Get Started</a>

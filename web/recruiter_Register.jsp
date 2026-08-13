@@ -52,12 +52,12 @@
 
 <div class="mb-3">
 <label>Company Name</label>
-<input class="form-control" type="text" name="company" required>
+<input class="form-control" type="text" name="company_name" required>
 </div>
 
 <div class="mb-3">
 <label>HR Contact Person</label>
-<input class="form-control" type="text" name="hr" required>
+<input class="form-control" type="text" name="hr_contact_person" required>
 </div>
 
 <div class="mb-3">
@@ -72,12 +72,12 @@
 
 <div class="mb-3">
 <label>Job Title</label>
-<input class="form-control" type="text" name="jobtitle">
+<input class="form-control" type="text" name="job_title">
 </div>
 
 <div class="mb-3">
 <label>Company Website</label>
-<input class="form-control" type="url" name="website">
+<input class="form-control" type="url" name="website_url">
 </div>
 
 <div class="mb-3">

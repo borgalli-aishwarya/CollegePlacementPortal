@@ -18,12 +18,12 @@ public class RecruiterRegisterServlet extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
 
-        String company = request.getParameter("companyName");
-        String hr = request.getParameter("hrName");
+        String company = request.getParameter("company_name");
+        String hr = request.getParameter("hr_contact_person");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
-        String jobTitle = request.getParameter("jobTitle");
-        String website = request.getParameter("website");
+        String jobTitle = request.getParameter("job_title");
+        String website = request.getParameter("website_url");
         String industry = request.getParameter("industry");
         String location = request.getParameter("location");
         String logo = request.getParameter("logo");

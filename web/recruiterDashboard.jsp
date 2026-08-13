@@ -1,17 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java"
+         contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
 
 <%
 String companyName = (String) session.getAttribute("companyName");
 
-if(companyName == null){
+if (companyName == null) {
     response.sendRedirect("recruiterLogin.jsp");
     return;
 }
+
+String success = request.getParameter("success");
 %>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,79 +23,88 @@ if(companyName == null){
 
 <title>Recruiter Dashboard | Campus Placement Portal</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet">
 
 <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet">
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Poppins,sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
-html,body{
-height:100%;
-display:flex;
-flex-direction:column;
+html,
+body {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
-body{
-background:#f5f7fc;
+body {
+    background: #f5f7fc;
 }
 
 .navbar,
-.footer{
-background:linear-gradient(90deg,#3b4cb8,#4f32c2,#5a2eb8);
+.footer {
+    background: linear-gradient(90deg, #3b4cb8, #4f32c2, #5a2eb8);
 }
 
 .navbar-brand,
-.nav-link{
-color:white!important;
+.nav-link {
+    color: white !important;
 }
 
-.nav-link{
-margin-left:18px;
-font-weight:500;
+.nav-link {
+    margin-left: 18px;
+    font-weight: 500;
 }
 
-.dashboard-section{
-flex:1;
-padding:40px 0;
+.dashboard-section {
+    flex: 1;
+    padding: 40px 0;
 }
 
-.welcome-box{
-background:#fff;
-border-radius:12px;
-padding:30px;
-box-shadow:0 10px 25px rgba(0,0,0,.10);
-margin-bottom:35px;
-text-align:center;
+.welcome-box {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.10);
+    margin-bottom: 25px;
+    text-align: center;
 }
 
-.card-box{
-background:white;
-padding:30px;
-border-radius:12px;
-box-shadow:0 10px 25px rgba(0,0,0,.10);
-height:100%;
-transition:.3s;
+.success-message {
+    border-radius: 10px;
+    font-size: 16px;
+    box-shadow: 0 5px 15px rgba(25,135,84,.12);
 }
 
-.card-box:hover{
-transform:translateY(-8px);
+.card-box {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.10);
+    height: 100%;
+    transition: .3s;
 }
 
-.footer{
-color:white;
-padding:25px 0;
-text-align:center;
-margin-top:auto;
+.card-box:hover {
+    transform: translateY(-8px);
+}
+
+.footer {
+    color: white;
+    padding: 25px 0;
+    text-align: center;
+    margin-top: auto;
 }
 
 </style>
@@ -103,189 +113,319 @@ margin-top:auto;
 
 <body>
 
-<!-- Navbar -->
+
+<!-- NAVBAR -->
 
 <nav class="navbar navbar-expand-lg">
 
-<div class="container-fluid">
+    <div class="container-fluid">
 
-<a class="navbar-brand fw-bold" href="recruiterDashboard.jsp">
-<i class="fa-solid fa-graduation-cap"></i>
-Campus Placement Portal
-</a>
+        <a class="navbar-brand fw-bold"
+           href="recruiterDashboard.jsp">
 
-<button class="navbar-toggler bg-light" type="button"
-data-bs-toggle="collapse"
-data-bs-target="#navbarNav">
+            <i class="fa-solid fa-graduation-cap"></i>
 
-<span class="navbar-toggler-icon"></span>
+            Campus Placement Portal
 
-</button>
+        </a>
 
-<div class="collapse navbar-collapse" id="navbarNav">
 
-<ul class="navbar-nav ms-auto">
+        <button class="navbar-toggler bg-light"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
 
-<li class="nav-item">
-<a class="nav-link active" href="recruiterDashboard.jsp">
-<i class="fa-solid fa-house"></i>
-Dashboard
-</a>
-</li>
+            <span class="navbar-toggler-icon"></span>
 
-<li class="nav-item">
-<a class="nav-link" href="posts.jsp">
-<i class="fa-solid fa-plus"></i>
-Post Job
-</a>
-</li>
+        </button>
 
-<li class="nav-item">
-<a class="nav-link" href="managejobs.jsp">
-<i class="fa-solid fa-briefcase"></i>
-Manage Jobs
-</a>
-</li>
 
-<li class="nav-item">
-<a class="nav-link" href="viewApplicationsRecruiter.jsp">
-<i class="fa-solid fa-users"></i>
-Applications
-</a>
-</li>
+        <div class="collapse navbar-collapse"
+             id="navbarNav">
 
-<li class="nav-item ms-3">
-<a class="btn btn-light" href="index.jsp">
-<i class="fa-solid fa-right-from-bracket"></i>
-Logout
-</a>
-</li>
+            <ul class="navbar-nav ms-auto">
 
-</ul>
 
-</div>
+                <!-- Dashboard -->
 
-</div>
+                <li class="nav-item">
+
+                    <a class="nav-link active"
+                       href="recruiterDashboard.jsp">
+
+                        <i class="fa-solid fa-house"></i>
+
+                        Dashboard
+
+                    </a>
+
+                </li>
+
+
+                <!-- Post Job -->
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="posts.jsp">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Post Job
+
+                    </a>
+
+                </li>
+
+
+                <!-- Manage Jobs -->
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="managejobs.jsp">
+
+                        <i class="fa-solid fa-briefcase"></i>
+
+                        Manage Jobs
+
+                    </a>
+
+                </li>
+
+
+                <!-- Applications -->
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="viewApplicationsRecruiter.jsp">
+
+                        <i class="fa-solid fa-users"></i>
+
+                        Applications
+
+                    </a>
+
+                </li>
+
+
+                <!-- Logout -->
+
+                <li class="nav-item ms-3">
+
+                    <a class="btn btn-light"
+                       href="index.jsp">
+
+                        <i class="fa-solid fa-right-from-bracket"></i>
+
+                        Logout
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
 
 </nav>
 
-<!-- Dashboard -->
+
+<!-- DASHBOARD -->
 
 <section class="dashboard-section">
 
-<div class="container">
+    <div class="container">
 
-<div class="welcome-box">
 
-<h2 class="fw-bold">
-Welcome, <%= companyName %> 👋
-</h2>
+        <!-- SUCCESS MESSAGE -->
 
-<p class="text-muted mt-3">
-Manage your job postings, review student applications,
-and recruit the best candidates for your organization.
-</p>
+        <%
+        if ("1".equals(success)) {
+        %>
 
-</div>
+        <div class="alert alert-success alert-dismissible fade show
+                    success-message text-center"
+             role="alert">
 
-<div class="row g-4">
+            <i class="fa-solid fa-circle-check me-2"></i>
 
-<!-- Post Job -->
+            <strong>Job posted successfully!</strong>
 
-<div class="col-lg-4 col-md-6">
+            Your job has been added successfully.
 
-<div class="card-box text-center">
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert">
+            </button>
 
-<i class="fa-solid fa-plus fa-2x text-primary mb-3"></i>
+        </div>
 
-<h5>Post New Job</h5>
+        <%
+        }
+        %>
 
-<p>
-Create and publish new job openings for students.
-</p>
 
-<a href="posts.jsp" class="btn btn-primary w-100">
-Post Job
-</a>
+        <!-- WELCOME -->
 
-</div>
+        <div class="welcome-box">
 
-</div>
+            <h2 class="fw-bold">
 
-<!-- Manage Jobs -->
+                Welcome, <%= companyName %>!
 
-<div class="col-lg-4 col-md-6">
+            </h2>
 
-<div class="card-box text-center">
+            <p class="text-muted mt-3">
 
-<i class="fa-solid fa-briefcase fa-2x text-success mb-3"></i>
+                Manage your job postings, review student applications,
+                and recruit the best candidates for your organization.
 
-<h5>Manage Jobs</h5>
+            </p>
 
-<p>
-View, edit or remove your posted jobs.
-</p>
+        </div>
 
-<a href="managejobs.jsp" class="btn btn-success w-100">
-Manage Jobs
-</a>
 
-</div>
+        <!-- DASHBOARD CARDS -->
 
-</div>
+        <div class="row g-4">
 
-<!-- Applications -->
 
-<div class="col-lg-4 col-md-6">
+            <!-- POST JOB -->
 
-<div class="card-box text-center">
+            <div class="col-lg-4 col-md-6">
 
-<i class="fa-solid fa-users fa-2x text-warning mb-3"></i>
+                <div class="card-box text-center">
 
-<h5>Applications</h5>
+                    <i class="fa-solid fa-plus
+                              fa-2x text-primary mb-3">
+                    </i>
 
-<p>
-View students who have applied for your jobs.
-</p>
+                    <h5>Post New Job</h5>
 
-<a href="viewApplicationsRecruiter.jsp" class="btn btn-warning w-100">
-View Applications
-</a>
+                    <p>
 
-</div>
+                        Create and publish new job openings
+                        for students.
 
-</div>
+                    </p>
 
-</div>
+                    <a href="posts.jsp"
+                       class="btn btn-primary w-100">
 
-</div>
+                        Post Job
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- MANAGE JOBS -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="card-box text-center">
+
+                    <i class="fa-solid fa-briefcase
+                              fa-2x text-success mb-3">
+                    </i>
+
+                    <h5>Manage Jobs</h5>
+
+                    <p>
+
+                        View, edit or remove your posted jobs.
+
+                    </p>
+
+                    <a href="managejobs.jsp"
+                       class="btn btn-success w-100">
+
+                        Manage Jobs
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- APPLICATIONS -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="card-box text-center">
+
+                    <i class="fa-solid fa-users
+                              fa-2x text-warning mb-3">
+                    </i>
+
+                    <h5>Applications</h5>
+
+                    <p>
+
+                        View students who have applied
+                        for your jobs.
+
+                    </p>
+
+                    <a href="viewApplicationsRecruiter.jsp"
+                       class="btn btn-warning w-100">
+
+                        View Applications
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </section>
 
-<!-- Footer -->
+
+<!-- FOOTER -->
 
 <footer class="footer">
 
-<div class="container">
+    <div class="container">
 
-<h5>
-<i class="fa-solid fa-graduation-cap"></i>
-Campus Placement Portal
-</h5>
+        <h5>
 
-<p>
-Empowering students with career opportunities.
-</p>
+            <i class="fa-solid fa-graduation-cap"></i>
 
-<p>
-© 2026 Campus Placement Portal
-</p>
+            Campus Placement Portal
 
-</div>
+        </h5>
+
+        <p>
+
+            Empowering recruiters to hire talented students.
+
+        </p>
+
+        <p>
+
+            © 2026 Campus Placement Portal
+
+        </p>
+
+    </div>
 
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
 
 </body>
+
 </html>
