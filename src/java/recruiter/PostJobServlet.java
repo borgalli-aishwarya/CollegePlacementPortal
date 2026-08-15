@@ -30,7 +30,7 @@ public class PostJobServlet extends HttpServlet {
         if (session == null
                 || session.getAttribute("recruiterId") == null) {
 
-            response.sendRedirect("recruiterLogin.jsp");
+            response.sendRedirect("recruiter_login.jsp");
             return;
         }
 

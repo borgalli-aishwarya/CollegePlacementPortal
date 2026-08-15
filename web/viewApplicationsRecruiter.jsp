@@ -6,7 +6,7 @@
 Integer recruiterId = (Integer) session.getAttribute("recruiterId");
 
 if(recruiterId == null){
-    response.sendRedirect("recruiterLogin.jsp");
+    response.sendRedirect("recruiter_login.jsp");
     return;
 }
 %>

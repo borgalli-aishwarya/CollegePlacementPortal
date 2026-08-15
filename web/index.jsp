@@ -337,91 +337,114 @@ p {
 
         <!-- Logo -->
         <a class="navbar-brand" href="index.jsp">
-            <img src="<%=request.getContextPath()%>/images/logo.png"
-                 alt="Logo">
+            <img src="<%=request.getContextPath()%>/images/logo.png" alt="Logo">
             Campus Placement Portal
         </a>
 
+        <!-- Mobile Toggle -->
         <button class="navbar-toggler bg-white"
                 type="button"
                 data-bs-toggle="collapse"
-                data-bs-target="#menu">
+                data-bs-target="#menu"
+                aria-controls="menu"
+                aria-expanded="false">
 
             <span class="navbar-toggler-icon"></span>
+
         </button>
 
-        <div class="collapse navbar-collapse" id="menu">
+        <!-- Menu -->
+        <!-- Menu -->
+<div class="collapse navbar-collapse" id="menu">
 
-            <ul class="navbar-nav ms-auto align-items-center">
+    <ul class="navbar-nav ms-auto align-items-center">
 
-                <!-- Home -->
-                <li class="nav-item">
-                    <a class="nav-link" href="index.jsp">
-                        <i class="fa-solid fa-house"></i>
-                        Home
+        <!-- Home -->
+        <li class="nav-item">
+            <a class="nav-link" href="index.jsp">
+                <i class="fa-solid fa-house"></i>
+                Home
+            </a>
+        </li>
+
+
+        <!-- Jobs -->
+        <li class="nav-item">
+            <a class="nav-link" href="jobs.jsp">
+                <i class="fa-solid fa-briefcase"></i>
+                Jobs
+            </a>
+        </li>
+
+
+        <!-- Companies -->
+        <li class="nav-item">
+            <a class="nav-link" href="companies.jsp">
+                <i class="fa-solid fa-building"></i>
+                Companies
+            </a>
+        </li>
+
+
+        <!-- Login -->
+        <li class="nav-item dropdown">
+
+            <a class="nav-link dropdown-toggle"
+               href="#"
+               id="loginDropdown"
+               role="button"
+               data-bs-toggle="dropdown">
+
+                <i class="fa-solid fa-right-to-bracket"></i>
+                Login
+
+            </a>
+
+            <ul class="dropdown-menu">
+
+                <!-- Student Login -->
+                <li>
+                    <a class="dropdown-item"
+                       href="student_login.jsp">
+
+                        <i class="fa-solid fa-user-graduate me-2"></i>
+                        Student Login
+
                     </a>
                 </li>
 
-                <!-- Jobs -->
-                <li class="nav-item">
-                    <a class="nav-link" href="jobs.jsp">
-                        <i class="fa-solid fa-briefcase"></i>
-                        Jobs
+
+                <!-- Recruiter Login -->
+                <li>
+                    <a class="dropdown-item"
+                       href="recruiter_login.jsp">
+
+                        <i class="fa-solid fa-building me-2"></i>
+                        Recruiter Login
+
                     </a>
                 </li>
 
-                <!-- Companies -->
-                <li class="nav-item">
-                    <a class="nav-link" href="companies.jsp">
-                        <i class="fa-solid fa-building"></i>
-                        Companies
+
+                <!-- Admin Login -->
+                <li>
+                    <a class="dropdown-item"
+                       href="admin_Login.jsp">
+
+                        <i class="fa-solid fa-user-shield me-2"></i>
+                        Admin Login
+
                     </a>
-                </li>
-
-                <!-- Login -->
-                <li class="nav-item dropdown">
-
-                    <a class="nav-link dropdown-toggle"
-                       href="#"
-                       data-bs-toggle="dropdown">
-
-                        <i class="fa-solid fa-right-to-bracket"></i>
-                        Login
-                    </a>
-
-                    <ul class="dropdown-menu">
-
-                        <li>
-                            <a class="dropdown-item"
-                               href="student_login.jsp">
-                                <i class="fa-solid fa-user-graduate me-2"></i>
-                                Student Login
-                            </a>
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item"
-                               href="recruiter_login.jsp">
-                                <i class="fa-solid fa-building me-2"></i>
-                                Recruiter Login
-                            </a>
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item"
-                               href="admin_Login.jsp">
-                                <i class="fa-solid fa-user-shield me-2"></i>
-                                Admin Login
-                            </a>
-                        </li>
-
-                    </ul>
                 </li>
 
             </ul>
 
-        </div>
-    </div>
+        </li>
+
+    </ul>
+
+</div>
+    
 </nav>
 
 

@@ -10,7 +10,7 @@
             (String) session.getAttribute("companyName");
 
     if (companyName == null) {
-        response.sendRedirect("recruiterLogin.jsp");
+        response.sendRedirect("recruiter_login.jsp");
         return;
     }
 

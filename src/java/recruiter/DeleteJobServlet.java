@@ -38,6 +38,13 @@ public class DeleteJobServlet extends HttpServlet {
             database db = new database();
             Connection con = db.connectDB();
 
+            // First delete applications associated with this job
+            String deleteAppSql = "DELETE FROM applications WHERE job_id = ?";
+            PreparedStatement psApp = con.prepareStatement(deleteAppSql);
+            psApp.setInt(1, Integer.parseInt(id));
+            psApp.executeUpdate();
+            psApp.close();
+
             String sql =
                     "DELETE FROM jobs "
                     + "WHERE id = ? AND recruiter_id = ?";

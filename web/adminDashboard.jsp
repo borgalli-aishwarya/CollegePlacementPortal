@@ -52,7 +52,7 @@
 <li class="nav-item"><a class="nav-link" href="jobs.jsp">Jobs</a></li>
 <li class="nav-item"><a class="nav-link" href="students.jsp">Students</a></li>
 <li class="nav-item"><a class="nav-link" href="recruiters.jsp">Recruiters</a></li>
-<li class="nav-item ms-3"><a class="btn btn-light" href="adminLogin.jsp">Logout</a></li>
+<li class="nav-item ms-3"><a class="btn btn-light" href="admin_Login.jsp">Logout</a></li>
 </ul></div></div></nav>
 
 <section class="dashboard-section">

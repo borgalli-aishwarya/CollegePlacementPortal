@@ -38,7 +38,7 @@
 <li class="nav-item"><a class="nav-link" href="#">Jobs</a></li>
 <li class="nav-item"><a class="nav-link" href="#">Students</a></li>
 <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-<li class="nav-item ms-3"><a class="btn btn-light" href="recruiterRegister.jsp">Register</a></li>
+<li class="nav-item ms-3"><a class="btn btn-light" href="recruiter_Register.jsp">Register</a></li>
 </ul></div></div></nav>
 
 <section class="hero">

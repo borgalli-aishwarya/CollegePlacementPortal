@@ -176,9 +176,17 @@ public class EditJobServlet extends HttpServlet {
             ps.setString(2, roleType);
             ps.setString(3, requirements);
             ps.setString(4, technicalSkills);
-            ps.setInt(5, Integer.parseInt(duration));
+            if (duration == null || duration.trim().isEmpty()) {
+                ps.setNull(5, java.sql.Types.INTEGER);
+            } else {
+                ps.setInt(5, Integer.parseInt(duration.trim()));
+            }
             ps.setString(6, salary);
-            ps.setString(7, deadline);
+            if (deadline == null || deadline.trim().isEmpty()) {
+                ps.setNull(7, java.sql.Types.DATE);
+            } else {
+                ps.setDate(7, java.sql.Date.valueOf(deadline.trim()));
+            }
             ps.setInt(8, Integer.parseInt(id));
             ps.setInt(9, recruiterId);
 

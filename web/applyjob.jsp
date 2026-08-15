@@ -30,7 +30,7 @@ footer {margin-top:auto;text-align:center;padding:15px 0;}
       <li class="nav-item"><a class="nav-link" href="jobs.jsp">Jobs</a></li>
       <li class="nav-item"><a class="nav-link" href="companies.jsp">Companies</a></li>
       <li class="nav-item"><a class="nav-link" href="contact.jsp">Contact</a></li>
-      <li class="nav-item ms-3"><a class="btn btn-light" href="studentRegister.jsp">Sign Up</a></li>
+      <li class="nav-item ms-3"><a class="btn btn-light" href="student_register.jsp">Sign Up</a></li>
     </ul>
   </div>
 </nav>

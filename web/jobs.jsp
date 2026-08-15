@@ -1,493 +1,456 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>
+<%@ page import="modell.database" %>
 
 <%
     Integer studentId = (Integer) session.getAttribute("studentId");
-
     boolean studentLoggedIn = (studentId != null);
 %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Jobs | Campus Placement Portal</title>
+    <title>Jobs | Campus Placement Portal</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
 
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-<link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
 
-<style>
+    <style>
 
-body{
-    background:#f5f7fc;
-    font-family:Poppins,sans-serif;
-}
+        body {
+            margin: 0;
+            background: #f5f7fc;
+            font-family: Poppins, sans-serif;
+        }
 
-.navbar{
-    background:linear-gradient(90deg,#3b4cb8,#4f32c2,#5a2eb8);
-}
+        .navbar {
+            background: linear-gradient(90deg, #3b4cb8, #4f32c2, #5a2eb8);
+        }
 
-.navbar-brand,
-.nav-link{
-    color:#fff!important;
-}
+        .navbar-brand,
+        .nav-link {
+            color: white !important;
+        }
 
-.nav-link{
-    margin-left:15px;
-}
+        .nav-link {
+            margin-left: 15px;
+            font-weight: 500;
+        }
 
-.job-card{
-    border:none;
-    border-radius:15px;
-    box-shadow:0 10px 20px rgba(0,0,0,.12);
-    margin-bottom:25px;
-    transition:.3s;
-}
+        .nav-link:hover {
+            color: #ffd700 !important;
+        }
 
-.job-card:hover{
-    transform:translateY(-5px);
-}
+        .job-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,.12);
+            margin-bottom: 25px;
+        }
 
-.footer{
-    background:linear-gradient(90deg,#3b4cb8,#4f32c2,#5a2eb8);
-    color:#fff;
-    padding:25px;
-    text-align:center;
-    margin-top:40px;
-}
+        .job-card:hover {
+            transform: translateY(-3px);
+            transition: .3s;
+        }
 
-</style>
+        .footer {
+            background: linear-gradient(90deg, #3b4cb8, #4f32c2, #5a2eb8);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+    </style>
 
 </head>
 
 <body>
 
-
 <!-- NAVBAR -->
 
 <nav class="navbar navbar-expand-lg">
 
-<div class="container">
+    <div class="container">
 
+        <% if (studentLoggedIn) { %>
 
-<!-- LOGO -->
+            <a class="navbar-brand fw-bold" href="studentDashboard.jsp">
 
-<a class="navbar-brand fw-bold"
-<%
-    if(studentLoggedIn){
-%>
-       href="studentDashboard.jsp"
-<%
-    }else{
-%>
-       href="index.jsp"
-<%
-    }
-%>
->
+        <% } else { %>
 
-<i class="fa-solid fa-graduation-cap"></i>
+            <a class="navbar-brand fw-bold" href="index.jsp">
 
-Campus Placement Portal
+        <% } %>
 
-</a>
+            <i class="fa-solid fa-graduation-cap"></i>
+            Campus Placement Portal
 
+            </a>
 
-<!-- NAVIGATION -->
 
-<ul class="navbar-nav ms-auto">
+        <ul class="navbar-nav ms-auto">
 
+            <!-- HOME / DASHBOARD -->
 
-<!-- HOME / DASHBOARD -->
+            <li class="nav-item">
 
-<li class="nav-item">
+                <% if (studentLoggedIn) { %>
 
-<%
-    if(studentLoggedIn){
-%>
+                    <a class="nav-link" href="studentDashboard.jsp">
+                        <i class="fa-solid fa-house"></i>
+                        Dashboard
+                    </a>
 
-<a class="nav-link"
-   href="studentDashboard.jsp">
+                <% } else { %>
 
-    <i class="fa-solid fa-house"></i>
-    Dashboard
+                    <a class="nav-link" href="index.jsp">
+                        <i class="fa-solid fa-house"></i>
+                        Home
+                    </a>
 
-</a>
+                <% } %>
 
-<%
-    }else{
-%>
+            </li>
 
-<a class="nav-link"
-   href="index.jsp">
 
-    <i class="fa-solid fa-house"></i>
-    Home
+            <!-- JOBS -->
 
-</a>
+            <li class="nav-item">
 
-<%
-    }
-%>
+                <a class="nav-link active" href="jobs.jsp">
 
-</li>
+                    <i class="fa-solid fa-briefcase"></i>
+                    Jobs
 
+                </a>
 
-<!-- JOBS -->
+            </li>
 
-<li class="nav-item">
 
-<a class="nav-link active"
-   href="jobs.jsp">
+            <!-- COMPANIES -->
 
-    <i class="fa-solid fa-briefcase"></i>
-    Jobs
+            <li class="nav-item">
 
-</a>
+                <a class="nav-link" href="companies.jsp">
 
-</li>
+                    <i class="fa-solid fa-building"></i>
+                    Companies
 
+                </a>
 
-<!-- COMPANIES -->
+            </li>
 
-<li class="nav-item">
 
-<a class="nav-link"
-   href="companies.jsp">
+            <% if (studentLoggedIn) { %>
 
-    <i class="fa-solid fa-building"></i>
-    Companies
+                <!-- MY APPLICATIONS -->
 
-</a>
+                <li class="nav-item">
 
-</li>
+                    <a class="nav-link" href="view_applications.jsp">
 
+                        <i class="fa-solid fa-file-lines"></i>
+                        My Applications
 
-<%
-    if(studentLoggedIn){
-%>
+                    </a>
 
-<!-- MY APPLICATIONS -->
+                </li>
 
-<li class="nav-item">
 
-<a class="nav-link"
-   href="myApplications.jsp">
+                <!-- LOGOUT -->
 
-    <i class="fa-solid fa-file-lines"></i>
-    My Applications
+                <li class="nav-item ms-3">
 
-</a>
+                    <a class="btn btn-light" href="index.jsp">
 
-</li>
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        Logout
 
+                    </a>
 
-<!-- LOGOUT -->
+                </li>
 
-<li class="nav-item ms-3">
+            <% } else { %>
 
-<a class="btn btn-light"
-   href="index.jsp">
+                <!-- LOGIN -->
 
-    <i class="fa-solid fa-right-from-bracket"></i>
-    Logout
+                <li class="nav-item ms-3">
 
-</a>
+                    <a class="btn btn-light" href="student_login.jsp">
 
-</li>
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        Login
 
-<%
-    }else{
-%>
+                    </a>
 
-<!-- LOGIN -->
+                </li>
 
-<li class="nav-item ms-3">
 
-<a class="btn btn-light"
-   href="student_login.jsp">
+                <!-- REGISTER -->
 
-    <i class="fa-solid fa-right-to-bracket"></i>
-    Login
+                <li class="nav-item ms-2">
 
-</a>
+                    <a class="btn btn-warning" href="student_register.jsp">
 
-</li>
+                        <i class="fa-solid fa-user-plus"></i>
+                        Register
 
+                    </a>
 
-<!-- REGISTER -->
+                </li>
 
-<li class="nav-item ms-2">
+            <% } %>
 
-<a class="btn btn-warning"
-   href="student_register.jsp">
+        </ul>
 
-    <i class="fa-solid fa-user-plus"></i>
-    Register
-
-</a>
-
-</li>
-
-<%
-    }
-%>
-
-
-</ul>
-
-</div>
+    </div>
 
 </nav>
-
-
-
-<!-- DATABASE -->
-
-<sql:setDataSource
-
-var="db"
-
-driver="com.mysql.cj.jdbc.Driver"
-
-url="jdbc:mysql://localhost:3306/college_placement?useSSL=false&serverTimezone=UTC"
-
-user="root"
-
-password="Aishu@1726"/>
-
-
-<sql:query var="result" dataSource="${db}">
-
-SELECT * FROM jobs;
-
-</sql:query>
-
 
 
 <!-- JOBS -->
 
 <div class="container mt-5">
 
+    <h2 class="text-center text-primary mb-4">
 
-<h2 class="text-center text-primary mb-4">
+        <i class="fa-solid fa-briefcase"></i>
+        Available Jobs
 
-<i class="fa-solid fa-briefcase"></i>
-
-Available Jobs
-
-</h2>
-
-
-<c:choose>
-
-
-<c:when test="${empty result.rows}">
-
-<div class="alert alert-warning text-center">
-
-<i class="fa-solid fa-circle-exclamation"></i>
-
-No Jobs Available
-
-</div>
-
-</c:when>
-
-
-<c:otherwise>
-
-
-<c:forEach var="row"
-           items="${result.rows}">
-
-
-<div class="card job-card">
-
-<div class="card-body">
-
-
-<h3>
-
-${row.title}
-
-</h3>
-
-
-<h5 class="text-muted">
-
-<i class="fa-solid fa-building"></i>
-
-${row.company}
-
-</h5>
-
-
-<hr>
-
-
-<p>
-
-<b>Role:</b>
-
-${row.role_type}
-
-</p>
-
-
-<p>
-
-<b>Requirements:</b>
-
-${row.requirements}
-
-</p>
-
-
-<p>
-
-<b>Technical Skills:</b>
-
-${row.technical_skills}
-
-</p>
-
-
-<p>
-
-<b>Duration:</b>
-
-${row.duration_months} Months
-
-</p>
-
-
-<p>
-
-<b>Salary / Stipend:</b>
-
-${row.stipend_salary}
-
-</p>
-
-
-<p>
-
-<b>Last Date:</b>
-
-${row.deadline}
-
-</p>
+    </h2>
 
 
 <%
-    if(studentLoggedIn){
+
+    database db = new database();
+
+    Connection con = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
+    boolean foundJobs = false;
+
+    try {
+
+        con = db.connectDB();
+
+        if (con == null) {
+
+            throw new Exception("Unable to connect to database.");
+
+        }
+
+        String sql = "SELECT * FROM jobs ORDER BY id DESC";
+
+        ps = con.prepareStatement(sql);
+
+        rs = ps.executeQuery();
+
+
+        while (rs.next()) {
+
+            foundJobs = true;
+
 %>
 
 
-<!-- APPLY BUTTON FOR LOGGED-IN STUDENT -->
+    <!-- JOB CARD -->
 
-<form action="applyjobservlet"
-      method="post">
+    <div class="card job-card">
 
-<input type="hidden"
-       name="jobId"
-       value="${row.id}">
+        <div class="card-body">
 
-<button type="submit"
-        class="btn btn-primary">
+            <h3 class="text-primary">
 
-<i class="fa-solid fa-paper-plane"></i>
+                <%= rs.getString("title") %>
 
-Apply Now
+            </h3>
 
-</button>
 
-</form>
+            <h5 class="text-muted">
+
+                <i class="fa-solid fa-building"></i>
+
+                <%= rs.getString("company") %>
+
+            </h5>
+
+
+            <hr>
+
+
+            <p>
+                <b>Role:</b>
+                <%= rs.getString("role_type") %>
+            </p>
+
+
+            <p>
+                <b>Requirements:</b>
+                <%= rs.getString("requirements") %>
+            </p>
+
+
+            <p>
+                <b>Technical Skills:</b>
+                <%= rs.getString("technical_skills") %>
+            </p>
+
+
+            <p>
+                <b>Duration:</b>
+                <%= rs.getInt("duration_months") %> Months
+            </p>
+
+
+            <p>
+                <b>Salary / Stipend:</b>
+                <%= rs.getString("stipend_salary") %>
+            </p>
+
+
+            <p>
+                <b>Last Date:</b>
+                <%= rs.getDate("deadline") %>
+            </p>
+
+
+            <% if (studentLoggedIn) { %>
+
+                <form action="applyjobservlet" method="post">
+
+                    <input type="hidden"
+                           name="jobId"
+                           value="<%= rs.getInt("id") %>">
+
+                    <button type="submit"
+                            class="btn btn-primary">
+
+                        <i class="fa-solid fa-paper-plane"></i>
+                        Apply Now
+
+                    </button>
+
+                </form>
+
+            <% } else { %>
+
+                <a href="student_login.jsp"
+                   class="btn btn-primary">
+
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    Login to Apply
+
+                </a>
+
+            <% } %>
+
+        </div>
+
+    </div>
 
 
 <%
-    }else{
+
+        }
+
+
+        if (!foundJobs) {
+
 %>
 
+            <div class="alert alert-warning text-center">
 
-<!-- LOGIN REQUIRED -->
+                <i class="fa-solid fa-circle-exclamation"></i>
 
-<a href="student_login.jsp"
-   class="btn btn-primary">
+                No Jobs Available
 
-<i class="fa-solid fa-right-to-bracket"></i>
-
-Login to Apply
-
-</a>
-
+            </div>
 
 <%
+
+        }
+
+    } catch (Exception e) {
+
+%>
+
+        <div class="alert alert-danger">
+
+            <strong>Database Error:</strong>
+
+            <%= e.getMessage() %>
+
+        </div>
+
+<%
+
+        e.printStackTrace();
+
+    } finally {
+
+        try {
+            if (rs != null) rs.close();
+        } catch (Exception e) {
+        }
+
+        try {
+            if (ps != null) ps.close();
+        } catch (Exception e) {
+        }
+
+        try {
+            if (con != null) con.close();
+        } catch (Exception e) {
+        }
+
     }
+
 %>
 
-
 </div>
-
-</div>
-
-
-</c:forEach>
-
-
-</c:otherwise>
-
-</c:choose>
-
-
-</div>
-
 
 
 <!-- FOOTER -->
 
 <footer class="footer">
 
-<div class="container">
+    <div class="container">
 
-<h5>
+        <h5>
 
-<i class="fa-solid fa-graduation-cap"></i>
+            <i class="fa-solid fa-graduation-cap"></i>
 
-Campus Placement Portal
+            Campus Placement Portal
 
-</h5>
+        </h5>
 
-<p>
+        <p>
+            Empowering students with career opportunities.
+        </p>
 
-Empowering students with career opportunities.
+        <p>
+            © 2026 Campus Placement Portal
+        </p>
 
-</p>
-
-<p>
-
-© 2026 Campus Placement Portal
-
-</p>
-
-</div>
+    </div>
 
 </footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
-</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
