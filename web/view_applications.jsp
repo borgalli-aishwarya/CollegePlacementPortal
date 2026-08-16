@@ -75,60 +75,64 @@ text-align:center;
 <!-- Navbar -->
 
 <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
 
-<div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="studentDashboard.jsp">
+            <i class="fa-solid fa-graduation-cap"></i>
+            Campus Placement Portal
+        </a>
 
-<a class="navbar-brand fw-bold" href="studentDashboard.jsp">
+        <button class="navbar-toggler bg-light" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-<i class="fa-solid fa-graduation-cap"></i>
+        <div class="collapse navbar-collapse" id="navbarNav">
 
-Campus Placement Portal
+            <ul class="navbar-nav ms-auto">
 
-</a>
+                <li class="nav-item">
+                    <a class="nav-link active" href="studentDashboard.jsp">
+                        <i class="fa-solid fa-house"></i> Dashboard
+                    </a>
+                </li>
 
-<button class="navbar-toggler bg-light"
-type="button"
-data-bs-toggle="collapse"
-data-bs-target="#navbarNav">
+                <li class="nav-item">
+                    <a class="nav-link" href="jobs.jsp">
+                        <i class="fa-solid fa-briefcase"></i> Jobs
+                    </a>
+                </li>
 
-<span class="navbar-toggler-icon"></span>
+                <li class="nav-item">
+                    <a class="nav-link" href="companies.jsp">
+                        <i class="fa-solid fa-building"></i> Companies
+                    </a>
+                </li>
 
-</button>
+                <li class="nav-item">
+                    <a class="nav-link" href="view_applications.jsp">
+                        <i class="fa-solid fa-file-circle-check"></i> My Applications
+                    </a>
+                </li>
 
-<div class="collapse navbar-collapse" id="navbarNav">
+                <li class="nav-item">
+                    <a class="nav-link" href="updateresume.jsp">
+                        <i class="fa-solid fa-file-arrow-up"></i> Update Resume
+                    </a>
+                </li>
 
-<ul class="navbar-nav ms-auto">
+                <li class="nav-item ms-3">
+                    <a class="btn btn-light" href="index.jsp">
+                        <i class="fa-solid fa-right-from-bracket"></i> Logout
+                    </a>
+                </li>
 
-<li class="nav-item">
+            </ul>
 
-<a class="nav-link active"
-href="studentDashboard.jsp">
+        </div>
 
-<i class="fa-solid fa-house"></i>
-
-Home
-
-</a>
-
-</li>
-
-<li class="nav-item">
-
-<a class="nav-link"
-href="jobs.jsp">
-
-Jobs
-
-</a>
-
-</li>
-
-</ul>
-
-</div>
-
-</div>
-
+    </div>
 </nav>
 
 <!-- Main -->

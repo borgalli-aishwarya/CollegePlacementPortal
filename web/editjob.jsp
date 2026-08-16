@@ -139,9 +139,11 @@ body {
            href="recruiterDashboard.jsp">
 
             <i class="fa-solid fa-graduation-cap"></i>
+
             Campus Placement Portal
 
         </a>
+
 
         <button class="navbar-toggler bg-light"
                 type="button"
@@ -152,34 +154,30 @@ body {
 
         </button>
 
+
         <div class="collapse navbar-collapse"
              id="navbarNav">
 
             <ul class="navbar-nav ms-auto">
 
+
+                <!-- Dashboard -->
+
                 <li class="nav-item">
 
-                    <a class="nav-link"
+                    <a class="nav-link active"
                        href="recruiterDashboard.jsp">
 
                         <i class="fa-solid fa-house"></i>
+
                         Dashboard
 
                     </a>
 
                 </li>
 
-                <li class="nav-item">
 
-                    <a class="nav-link"
-                       href="ManageJobsServlet">
-
-                        <i class="fa-solid fa-briefcase"></i>
-                        Manage Jobs
-
-                    </a>
-
-                </li>
+                <!-- Post Job -->
 
                 <li class="nav-item">
 
@@ -187,11 +185,47 @@ body {
                        href="posts.jsp">
 
                         <i class="fa-solid fa-plus"></i>
+
                         Post Job
 
                     </a>
 
                 </li>
+
+
+                <!-- Manage Jobs -->
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="managejobs.jsp">
+
+                        <i class="fa-solid fa-briefcase"></i>
+
+                        Manage Jobs
+
+                    </a>
+
+                </li>
+
+
+                <!-- Applications -->
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="viewApplicationsRecruiter.jsp">
+
+                        <i class="fa-solid fa-users"></i>
+
+                        Applications
+
+                    </a>
+
+                </li>
+
+
+                <!-- Logout -->
 
                 <li class="nav-item ms-3">
 
@@ -199,6 +233,7 @@ body {
                        href="index.jsp">
 
                         <i class="fa-solid fa-right-from-bracket"></i>
+
                         Logout
 
                     </a>

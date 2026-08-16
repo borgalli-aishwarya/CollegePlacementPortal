@@ -29,18 +29,69 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg">
-<div class="container">
-<a class="navbar-brand fw-bold" href="index.jsp"><i class="fa-solid fa-graduation-cap"></i> Campus Placement Portal</a>
-<button class="navbar-toggler bg-light" data-bs-toggle="collapse" data-bs-target="#m"><span class="navbar-toggler-icon"></span></button>
-<div class="collapse navbar-collapse" id="m">
-<ul class="navbar-nav ms-auto">
-<li class="nav-item"><a class="nav-link" href="index.jsp">Home</a></li>
-<li class="nav-item"><a class="nav-link" href="#">Jobs</a></li>
-<li class="nav-item"><a class="nav-link" href="#">Students</a></li>
-<li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-<li class="nav-item ms-3"><a class="btn btn-light" href="recruiter_login.jsp">Login</a></li>
-</ul></div></div></nav>
+```jsp
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar navbar-expand-lg navbar-dark"
+     style="background: linear-gradient(90deg, #3b4cb8, #4f32c2, #5a2eb8);">
+
+    <div class="container-fluid px-4">
+
+        <!-- LOGO -->
+
+        <a class="navbar-brand fw-bold"
+           href="index.jsp">
+
+            <i class="fa-solid fa-graduation-cap"></i>
+
+            Campus Placement Portal
+
+        </a>
+
+
+        <!-- MOBILE MENU BUTTON -->
+
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mainNavbar"
+                aria-controls="mainNavbar"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+
+        <!-- ONLY HOME -->
+
+        <div class="collapse navbar-collapse"
+             id="mainNavbar">
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+
+                    <a class="nav-link active"
+                       href="index.jsp">
+
+                        <i class="fa-solid fa-house"></i>
+                        Home
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
 
 <section class="register-section">
 <div class="container">

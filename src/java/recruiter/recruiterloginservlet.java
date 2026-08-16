@@ -25,8 +25,6 @@ public class recruiterloginservlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        response.setContentType("text/html;charset=UTF-8");
-
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -34,19 +32,26 @@ public class recruiterloginservlet extends HttpServlet {
         try {
 
             database db = new database();
+
             con = db.connectDB();
 
-            // Check database connection
+            /* ================= DATABASE CHECK ================= */
+
             if (con == null) {
-                response.getWriter().println(
-                        "<h3>Database connection failed.</h3>"
+
+                response.sendRedirect(
+                        "recruiter_login.jsp?error=db"
                 );
+
                 return;
             }
 
-            String sql = "SELECT id, company_name, email, status "
-                       + "FROM recruiters "
-                       + "WHERE email=? AND password=?";
+            /* ================= LOGIN QUERY ================= */
+
+            String sql =
+                    "SELECT id, company_name, email, status " +
+                    "FROM recruiters " +
+                    "WHERE email=? AND password=?";
 
             ps = con.prepareStatement(sql);
 
@@ -55,66 +60,100 @@ public class recruiterloginservlet extends HttpServlet {
 
             rs = ps.executeQuery();
 
+
+            /* ================= LOGIN SUCCESS ================= */
+
             if (rs.next()) {
 
-                // Create session
-                HttpSession session = request.getSession();
+                HttpSession session =
+                        request.getSession();
 
-                // Store recruiter information
-                session.setAttribute("recruiterId", rs.getInt("id"));
+                session.setAttribute(
+                        "recruiterId",
+                        rs.getInt("id")
+                );
+
                 session.setAttribute(
                         "companyName",
                         rs.getString("company_name")
                 );
+
                 session.setAttribute(
                         "recruiterEmail",
                         rs.getString("email")
                 );
+
                 session.setAttribute(
                         "recruiterStatus",
                         rs.getString("status")
                 );
 
-                // Login successful
-                response.sendRedirect("recruiterDashboard.jsp");
 
-            } else {
+                /* Go to recruiter dashboard */
 
-                // Login failed
-                response.sendRedirect("recruiter_login.jsp");
+                response.sendRedirect(
+                        "recruiterDashboard.jsp"
+                );
+
             }
+
+
+            /* ================= LOGIN FAILED ================= */
+
+            else {
+
+                /*
+                 * Wrong email OR wrong password
+                 */
+
+                response.sendRedirect(
+                        "recruiter_login.jsp?error=1"
+                );
+
+            }
+
 
         } catch (Exception ex) {
 
             ex.printStackTrace();
 
-            response.getWriter().println("<h3>Login Error</h3>");
-            response.getWriter().println("<pre>");
-            ex.printStackTrace(response.getWriter());
-            response.getWriter().println("</pre>");
+            response.sendRedirect(
+                    "recruiter_login.jsp?error=db"
+            );
+
 
         } finally {
 
             try {
+
                 if (rs != null) {
                     rs.close();
                 }
+
             } catch (Exception e) {
             }
 
+
             try {
+
                 if (ps != null) {
                     ps.close();
                 }
+
             } catch (Exception e) {
             }
 
+
             try {
+
                 if (con != null) {
                     con.close();
                 }
+
             } catch (Exception e) {
             }
+
         }
+
     }
 }

@@ -69,57 +69,120 @@ vertical-align:middle;
 <body>
 
 <!-- Navbar -->
-
 <nav class="navbar navbar-expand-lg">
 
-<div class="container-fluid">
+    <div class="container-fluid">
 
-<a class="navbar-brand fw-bold" href="recruiterDashboard.jsp">
+        <a class="navbar-brand fw-bold"
+           href="recruiterDashboard.jsp">
 
-<i class="fa-solid fa-graduation-cap"></i>
+            <i class="fa-solid fa-graduation-cap"></i>
 
-Campus Placement Portal
+            Campus Placement Portal
 
-</a>
+        </a>
 
-<button class="navbar-toggler bg-light"
-type="button"
-data-bs-toggle="collapse"
-data-bs-target="#navbarNav">
 
-<span class="navbar-toggler-icon"></span>
+        <button class="navbar-toggler bg-light"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
 
-</button>
+            <span class="navbar-toggler-icon"></span>
 
-<div class="collapse navbar-collapse" id="navbarNav">
+        </button>
 
-<ul class="navbar-nav ms-auto">
 
-<li class="nav-item">
-<a class="nav-link active"
-href="recruiterDashboard.jsp">
+        <div class="collapse navbar-collapse"
+             id="navbarNav">
 
-<i class="fa-solid fa-house"></i>
+            <ul class="navbar-nav ms-auto">
 
-Home
 
-</a>
-</li>
+                <!-- Dashboard -->
 
-<li class="nav-item">
-<a class="nav-link"
-href="posts.jsp">
+                <li class="nav-item">
 
-Post Job
+                    <a class="nav-link active"
+                       href="recruiterDashboard.jsp">
 
-</a>
-</li>
+                        <i class="fa-solid fa-house"></i>
 
-</ul>
+                        Dashboard
 
-</div>
+                    </a>
 
-</div>
+                </li>
+
+
+                <!-- Post Job -->
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="posts.jsp">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Post Job
+
+                    </a>
+
+                </li>
+
+
+                <!-- Manage Jobs -->
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="managejobs.jsp">
+
+                        <i class="fa-solid fa-briefcase"></i>
+
+                        Manage Jobs
+
+                    </a>
+
+                </li>
+
+
+                <!-- Applications -->
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="viewApplicationsRecruiter.jsp">
+
+                        <i class="fa-solid fa-users"></i>
+
+                        Applications
+
+                    </a>
+
+                </li>
+
+
+                <!-- Logout -->
+
+                <li class="nav-item ms-3">
+
+                    <a class="btn btn-light"
+                       href="index.jsp">
+
+                        <i class="fa-solid fa-right-from-bracket"></i>
+
+                        Logout
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
 
 </nav>
 

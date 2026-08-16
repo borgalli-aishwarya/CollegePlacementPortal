@@ -43,13 +43,39 @@
 
                 <li class="nav-item">
                     <a class="nav-link active" href="studentDashboard.jsp">
-                        <i class="fa-solid fa-house"></i> Home
+                        <i class="fa-solid fa-house"></i> Dashboard
                     </a>
                 </li>
 
-              
+                <li class="nav-item">
+                    <a class="nav-link" href="jobs.jsp">
+                        <i class="fa-solid fa-briefcase"></i> Jobs
+                    </a>
+                </li>
 
-                
+                <li class="nav-item">
+                    <a class="nav-link" href="companies.jsp">
+                        <i class="fa-solid fa-building"></i> Companies
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="view_applications.jsp">
+                        <i class="fa-solid fa-file-circle-check"></i> My Applications
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="updateresume.jsp">
+                        <i class="fa-solid fa-file-arrow-up"></i> Update Resume
+                    </a>
+                </li>
+
+                <li class="nav-item ms-3">
+                    <a class="btn btn-light" href="index.jsp">
+                        <i class="fa-solid fa-right-from-bracket"></i> Logout
+                    </a>
+                </li>
 
             </ul>
 

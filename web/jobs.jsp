@@ -84,131 +84,144 @@
 
     <div class="container">
 
-        <% if (studentLoggedIn) { %>
-
-            <a class="navbar-brand fw-bold" href="studentDashboard.jsp">
-
-        <% } else { %>
-
-            <a class="navbar-brand fw-bold" href="index.jsp">
-
-        <% } %>
+        <!-- LOGO -->
+        <a class="navbar-brand fw-bold"
+           href="<%= studentLoggedIn ? "studentDashboard.jsp" : "index.jsp" %>">
 
             <i class="fa-solid fa-graduation-cap"></i>
             Campus Placement Portal
 
-            </a>
+        </a>
 
 
-        <ul class="navbar-nav ms-auto">
-
-            <!-- HOME / DASHBOARD -->
-
-            <li class="nav-item">
-
-                <% if (studentLoggedIn) { %>
-
-                    <a class="nav-link" href="studentDashboard.jsp">
-                        <i class="fa-solid fa-house"></i>
-                        Dashboard
-                    </a>
-
-                <% } else { %>
-
-                    <a class="nav-link" href="index.jsp">
-                        <i class="fa-solid fa-house"></i>
-                        Home
-                    </a>
-
-                <% } %>
-
-            </li>
-
-
-            <!-- JOBS -->
-
-            <li class="nav-item">
-
-                <a class="nav-link active" href="jobs.jsp">
-
-                    <i class="fa-solid fa-briefcase"></i>
-                    Jobs
-
-                </a>
-
-            </li>
-
-
-            <!-- COMPANIES -->
-
-            <li class="nav-item">
-
-                <a class="nav-link" href="companies.jsp">
-
-                    <i class="fa-solid fa-building"></i>
-                    Companies
-
-                </a>
-
-            </li>
-
+        <ul class="navbar-nav ms-auto align-items-center">
 
             <% if (studentLoggedIn) { %>
 
-                <!-- MY APPLICATIONS -->
+                <!-- ================= STUDENT NAVBAR ================= -->
 
                 <li class="nav-item">
+                    <a class="nav-link"
+                       href="studentDashboard.jsp">
 
-                    <a class="nav-link" href="view_applications.jsp">
+                        <i class="fa-solid fa-house"></i>
+                        Dashboard
+
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link active"
+                       href="jobs.jsp">
+
+                        <i class="fa-solid fa-briefcase"></i>
+                        Jobs
+
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="companies.jsp">
+
+                        <i class="fa-solid fa-building"></i>
+                        Companies
+
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="view_applications.jsp">
 
                         <i class="fa-solid fa-file-lines"></i>
                         My Applications
 
                     </a>
-
                 </li>
 
 
-                <!-- LOGOUT -->
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="updateresume.jsp">
+
+                        <i class="fa-solid fa-file-arrow-up"></i>
+                        Update Resume
+
+                    </a>
+                </li>
+
 
                 <li class="nav-item ms-3">
-
-                    <a class="btn btn-light" href="index.jsp">
+                    <a class="btn btn-light"
+                       href="index.jsp">
 
                         <i class="fa-solid fa-right-from-bracket"></i>
                         Logout
 
                     </a>
-
                 </li>
+
 
             <% } else { %>
 
-                <!-- LOGIN -->
+                <!-- ================= PUBLIC NAVBAR ================= -->
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="index.jsp">
+
+                        <i class="fa-solid fa-house"></i>
+                        Home
+
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link active"
+                       href="jobs.jsp">
+
+                        <i class="fa-solid fa-briefcase"></i>
+                        Jobs
+
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="companies.jsp">
+
+                        <i class="fa-solid fa-building"></i>
+                        Companies
+
+                    </a>
+                </li>
+
 
                 <li class="nav-item ms-3">
-
-                    <a class="btn btn-light" href="student_login.jsp">
+                    <a class="btn btn-light"
+                       href="student_login.jsp">
 
                         <i class="fa-solid fa-right-to-bracket"></i>
                         Login
 
                     </a>
-
                 </li>
 
 
-                <!-- REGISTER -->
-
                 <li class="nav-item ms-2">
-
-                    <a class="btn btn-warning" href="student_register.jsp">
+                    <a class="btn btn-warning"
+                       href="student_register.jsp">
 
                         <i class="fa-solid fa-user-plus"></i>
                         Register
 
                     </a>
-
                 </li>
 
             <% } %>

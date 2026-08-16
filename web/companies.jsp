@@ -28,14 +28,19 @@
 
 <style>
 
-body {
-    margin: 0;
-    background: #f5f7fc;
+* {
+    box-sizing: border-box;
     font-family: Poppins, sans-serif;
 }
 
+body {
+    margin: 0;
+    background: #f5f7fc;
+    min-height: 100vh;
+}
+
 .navbar {
-    background: linear-gradient(90deg,#3b4cb8,#4f32c2,#5a2eb8);
+    background: linear-gradient(90deg, #3b4cb8, #4f32c2, #5a2eb8);
 }
 
 .navbar-brand,
@@ -52,19 +57,64 @@ body {
     color: #ffd700 !important;
 }
 
+.page-title {
+    color: #1769ff;
+    font-weight: 600;
+    margin-top: 50px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
 .company-card {
     border: none;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0,0,0,.12);
-    margin-bottom: 25px;
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    margin-bottom: 30px;
+    transition: 0.3s;
+    height: 100%;
+}
+
+.company-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.16);
+}
+
+.company-name {
+    color: #1769ff;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.company-info {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.company-info strong {
+    color: #111;
+}
+
+.website-btn {
+    background: #1769ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.website-btn:hover {
+    background: #0d5bd7;
+    color: white;
 }
 
 .footer {
-    background: linear-gradient(90deg,#3b4cb8,#4f32c2,#5a2eb8);
+    background: linear-gradient(90deg, #3b4cb8, #4f32c2, #5a2eb8);
     color: white;
     padding: 25px;
     text-align: center;
-    margin-top: 50px;
+    margin-top: 60px;
 }
 
 </style>
@@ -77,257 +127,307 @@ body {
 
 <nav class="navbar navbar-expand-lg">
 
-<div class="container">
+    <div class="container">
 
-<a class="navbar-brand fw-bold"
-   href="<%= studentLoggedIn ? "studentDashboard.jsp" : "index.jsp" %>">
+        <a class="navbar-brand fw-bold"
+           href="<%= studentLoggedIn ? "studentDashboard.jsp" : "index.jsp" %>">
 
-<i class="fa-solid fa-graduation-cap"></i>
-Campus Placement Portal
+            <i class="fa-solid fa-graduation-cap"></i>
+            Campus Placement Portal
 
-</a>
+        </a>
 
-<ul class="navbar-nav ms-auto">
+        <ul class="navbar-nav ms-auto align-items-center">
 
-<li class="nav-item">
-<a class="nav-link"
-   href="<%= studentLoggedIn ? "studentDashboard.jsp" : "index.jsp" %>">
+            <% if (studentLoggedIn) { %>
 
-<i class="fa-solid fa-house"></i>
+                <!-- STUDENT NAVBAR -->
 
-<%= studentLoggedIn ? "Dashboard" : "Home" %>
+                <li class="nav-item">
+                    <a class="nav-link" href="studentDashboard.jsp">
+                        <i class="fa-solid fa-house"></i>
+                        Dashboard
+                    </a>
+                </li>
 
-</a>
-</li>
+                <li class="nav-item">
+                    <a class="nav-link" href="jobs.jsp">
+                        <i class="fa-solid fa-briefcase"></i>
+                        Jobs
+                    </a>
+                </li>
 
-<li class="nav-item">
-<a class="nav-link" href="jobs.jsp">
+                <li class="nav-item">
+                    <a class="nav-link active" href="companies.jsp">
+                        <i class="fa-solid fa-building"></i>
+                        Companies
+                    </a>
+                </li>
 
-<i class="fa-solid fa-briefcase"></i>
-Jobs
+                <li class="nav-item">
+                    <a class="nav-link" href="view_applications.jsp">
+                        <i class="fa-solid fa-file-lines"></i>
+                        My Applications
+                    </a>
+                </li>
 
-</a>
-</li>
+                <li class="nav-item">
+                    <a class="nav-link" href="updateresume.jsp">
+                        <i class="fa-solid fa-file-arrow-up"></i>
+                        Update Resume
+                    </a>
+                </li>
 
-<li class="nav-item">
-<a class="nav-link active" href="companies.jsp">
+                <li class="nav-item ms-3">
+                    <a class="btn btn-light" href="index.jsp">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        Logout
+                    </a>
+                </li>
 
-<i class="fa-solid fa-building"></i>
-Companies
+            <% } else { %>
 
-</a>
-</li>
+                <!-- PUBLIC NAVBAR -->
 
-<% if(studentLoggedIn) { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.jsp">
+                        <i class="fa-solid fa-house"></i>
+                        Home
+                    </a>
+                </li>
 
-<li class="nav-item">
-<a class="nav-link" href="view_applications.jsp">
+                <li class="nav-item">
+                    <a class="nav-link" href="jobs.jsp">
+                        <i class="fa-solid fa-briefcase"></i>
+                        Jobs
+                    </a>
+                </li>
 
-<i class="fa-solid fa-file-lines"></i>
-My Applications
+                <li class="nav-item">
+                    <a class="nav-link active" href="companies.jsp">
+                        <i class="fa-solid fa-building"></i>
+                        Companies
+                    </a>
+                </li>
 
-</a>
-</li>
+                <li class="nav-item ms-3">
+                    <a class="btn btn-light" href="student_login.jsp">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        Login
+                    </a>
+                </li>
 
-<li class="nav-item ms-3">
-<a class="btn btn-light" href="index.jsp">
+                <li class="nav-item ms-2">
+                    <a class="btn btn-warning" href="student_register.jsp">
+                        <i class="fa-solid fa-user-plus"></i>
+                        Register
+                    </a>
+                </li>
 
-<i class="fa-solid fa-right-from-bracket"></i>
-Logout
+            <% } %>
 
-</a>
-</li>
+        </ul>
 
-<% } else { %>
-
-<li class="nav-item ms-3">
-<a class="btn btn-light" href="student_login.jsp">
-
-<i class="fa-solid fa-right-to-bracket"></i>
-Login
-
-</a>
-</li>
-
-<li class="nav-item ms-2">
-<a class="btn btn-warning" href="student_register.jsp">
-
-<i class="fa-solid fa-user-plus"></i>
-Register
-
-</a>
-</li>
-
-<% } %>
-
-</ul>
-
-</div>
+    </div>
 
 </nav>
 
+<!-- PAGE TITLE -->
 
-<!-- COMPANIES -->
+<div class="container">
 
-<div class="container mt-5">
+    <h1 class="page-title">
 
-<h2 class="text-center text-primary mb-4">
+        <i class="fa-solid fa-building"></i>
+        Companies
 
-<i class="fa-solid fa-building"></i>
-Companies
+    </h1>
 
-</h2>
 
-<div class="row">
+    <div class="row">
 
 <%
 
-database db = new database();
 Connection con = null;
 PreparedStatement ps = null;
 ResultSet rs = null;
 
 try {
 
+    database db = new database();
+
     con = db.connectDB();
 
     if (con == null) {
-        throw new Exception("Database connection failed.");
-    }
-
-    String sql =
-        "SELECT id, company_name, hr_contact_person, email, phone, " +
-        "job_title, industry, location, website_url, status " +
-        "FROM recruiters " +
-        "WHERE status = 'Approved' " +
-        "ORDER BY id DESC";
-
-    ps = con.prepareStatement(sql);
-    rs = ps.executeQuery();
-
-    boolean found = false;
-
-    while (rs.next()) {
-
-        found = true;
 
 %>
 
-<div class="col-md-6 col-lg-4">
+        <div class="col-12">
 
-<div class="card company-card">
+            <div class="alert alert-danger text-center">
 
-<div class="card-body">
+                Unable to connect to database.
 
-<h4 class="text-primary">
+            </div>
 
-<i class="fa-solid fa-building"></i>
-
-<%= rs.getString("company_name") %>
-
-</h4>
-
-<hr>
-
-<p>
-<strong>Industry:</strong>
-<%= rs.getString("industry") != null
-        ? rs.getString("industry")
-        : "Not specified" %>
-</p>
-
-<p>
-<strong>Location:</strong>
-<%= rs.getString("location") != null
-        ? rs.getString("location")
-        : "Not specified" %>
-</p>
-
-<p>
-<strong>HR Contact:</strong>
-<%= rs.getString("hr_contact_person") %>
-</p>
-
-<p>
-<strong>Job Title:</strong>
-<%= rs.getString("job_title") != null
-        ? rs.getString("job_title")
-        : "Not specified" %>
-</p>
-
-<p>
-<strong>Email:</strong>
-<%= rs.getString("email") %>
-</p>
-
-<% if(rs.getString("phone") != null) { %>
-
-<p>
-<strong>Phone:</strong>
-<%= rs.getString("phone") %>
-</p>
-
-<% } %>
-
-<% if(rs.getString("website_url") != null &&
-      !rs.getString("website_url").trim().isEmpty()) { %>
-
-<a href="<%= rs.getString("website_url") %>"
-   target="_blank"
-   class="btn btn-primary">
-
-<i class="fa-solid fa-globe"></i>
-Visit Website
-
-</a>
-
-<% } %>
-
-</div>
-
-</div>
-
-</div>
+        </div>
 
 <%
 
-    }
+    } else {
 
-    if (!found) {
+        String sql =
+            "SELECT id, company_name, hr_contact_person, email, phone, " +
+            "industry, location, website_url, status " +
+            "FROM recruiters " +
+            "ORDER BY id DESC";
+
+        ps = con.prepareStatement(sql);
+
+        rs = ps.executeQuery();
+
+        boolean found = false;
+
+        while (rs.next()) {
+
+            found = true;
 
 %>
 
-<div class="col-12">
+        <div class="col-md-6 col-lg-4 mb-4">
 
-<div class="alert alert-warning text-center">
+            <div class="card company-card">
 
-<i class="fa-solid fa-circle-exclamation"></i>
+                <div class="card-body p-4">
 
-No approved companies available.
+                    <h3 class="company-name">
 
-</div>
+                        <i class="fa-solid fa-building"></i>
 
-</div>
+                        <%= rs.getString("company_name") %>
+
+                    </h3>
+
+                    <hr>
+
+
+                    <p class="company-info">
+
+                        <strong>Industry:</strong>
+
+                        <%= rs.getString("industry") != null
+                            ? rs.getString("industry")
+                            : "Not specified" %>
+
+                    </p>
+
+
+                    <p class="company-info">
+
+                        <strong>Location:</strong>
+
+                        <%= rs.getString("location") != null
+                            ? rs.getString("location")
+                            : "Not specified" %>
+
+                    </p>
+
+
+                    <p class="company-info">
+
+                        <strong>HR Contact:</strong>
+
+                        <%= rs.getString("hr_contact_person") != null
+                            ? rs.getString("hr_contact_person")
+                            : "Not specified" %>
+
+                    </p>
+
+
+                    <p class="company-info">
+
+                        <strong>Email:</strong>
+
+                        <%= rs.getString("email") != null
+                            ? rs.getString("email")
+                            : "Not specified" %>
+
+                    </p>
+
+
+                    <p class="company-info">
+
+                        <strong>Phone:</strong>
+
+                        <%= rs.getString("phone") != null
+                            ? rs.getString("phone")
+                            : "Not specified" %>
+
+                    </p>
+
+
+                    <% if (rs.getString("website_url") != null
+                           && !rs.getString("website_url").trim().isEmpty()) { %>
+
+                        <a href="<%= rs.getString("website_url") %>"
+                           target="_blank"
+                           class="website-btn">
+
+                            <i class="fa-solid fa-globe"></i>
+
+                            Visit Website
+
+                        </a>
+
+                    <% } %>
+
+                </div>
+
+            </div>
+
+        </div>
 
 <%
 
-    }
+        }
 
-} catch(Exception e) {
+        if (!found) {
 
 %>
 
-<div class="col-12">
+        <div class="col-12">
 
-<div class="alert alert-danger text-center">
+            <div class="alert alert-warning text-center">
 
-<strong>Database Error:</strong>
+                <i class="fa-solid fa-circle-exclamation"></i>
 
-<%= e.getMessage() %>
+                No companies registered yet.
 
-</div>
+            </div>
 
-</div>
+        </div>
+
+<%
+
+        }
+
+    }
+
+} catch (Exception e) {
+
+%>
+
+        <div class="col-12">
+
+            <div class="alert alert-danger">
+
+                <strong>Database Error:</strong>
+
+                <%= e.getMessage() %>
+
+            </div>
+
+        </div>
 
 <%
 
@@ -335,21 +435,21 @@ No approved companies available.
 
     try {
         if (rs != null) rs.close();
-    } catch(Exception e) {}
+    } catch (Exception e) {}
 
     try {
         if (ps != null) ps.close();
-    } catch(Exception e) {}
+    } catch (Exception e) {}
 
     try {
         if (con != null) con.close();
-    } catch(Exception e) {}
+    } catch (Exception e) {}
 
 }
 
 %>
 
-</div>
+    </div>
 
 </div>
 
@@ -358,27 +458,28 @@ No approved companies available.
 
 <footer class="footer">
 
-<div class="container">
+    <div class="container">
 
-<h5>
+        <h5>
 
-<i class="fa-solid fa-graduation-cap"></i>
+            <i class="fa-solid fa-graduation-cap"></i>
 
-Campus Placement Portal
+            Campus Placement Portal
 
-</h5>
+        </h5>
 
-<p>
-Empowering students with career opportunities.
-</p>
+        <p>
+            Empowering students with career opportunities.
+        </p>
 
-<p>
-© 2026 Campus Placement Portal
-</p>
+        <p>
+            © 2026 Campus Placement Portal
+        </p>
 
-</div>
+    </div>
 
 </footer>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
