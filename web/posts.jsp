@@ -2,109 +2,130 @@
          contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 
-<%
-String companyName = (String) session.getAttribute("companyName");
-
-if (companyName == null) {
-    response.sendRedirect("recruiter_login.jsp");
-    return;
-}
-%>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
 
-<title>Post Job | Campus Placement Portal</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet">
+    <title>Post New Job</title>
 
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-<style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
+    <style>
 
-html,
-body {
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-}
+        * {
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-body {
-    background: #f5f7fc;
-}
+        body {
+            background: #f5f7fc;
+            margin: 0;
+        }
 
-.navbar,
-.footer {
-    background: linear-gradient(90deg, #3b4cb8, #4f32c2, #5a2eb8);
-}
+        .navbar {
+            background: linear-gradient(
+                90deg,
+                #3b4cb8,
+                #4f32c2,
+                #5a2eb8
+            );
+            padding: 15px 0;
+        }
 
-.navbar-brand,
-.nav-link {
-    color: #fff !important;
-}
+        .navbar-brand {
+            color: white !important;
+            font-weight: 700;
+            font-size: 23px;
+        }
 
-.nav-link {
-    margin-left: 18px;
-    font-weight: 500;
-}
+        .nav-link {
+            color: white !important;
+            margin-left: 20px;
+        }
 
-.main-section {
-    flex: 1;
-    padding: 50px 0;
-}
+        .job-section {
+            padding: 50px 0;
+        }
 
-.job-card {
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-}
+        .job-card {
+            background: white;
+            padding: 35px;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.10);
+            max-width: 800px;
+            margin: auto;
+        }
 
-.form-label {
-    font-weight: 500;
-}
+        .job-title {
+            text-align: center;
+            color: #2468ff;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
 
-.form-control,
-.form-select {
-    border-radius: 8px;
-    min-height: 45px;
-}
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 7px;
+        }
 
-.footer {
-    color: #fff;
-    padding: 25px 0;
-    text-align: center;
-    margin-top: auto;
-}
+        .form-control,
+        .form-select {
+            min-height: 50px;
+            border-radius: 9px;
+        }
 
-</style>
+        textarea.form-control {
+            min-height: 120px;
+        }
+
+        .btn-post {
+            width: 100%;
+            background: #2468ff;
+            color: white;
+            border: none;
+            padding: 13px;
+            border-radius: 9px;
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .btn-post:hover {
+            background: #1457df;
+            color: white;
+        }
+
+        #otherRoleDiv {
+            display: none;
+        }
+
+    </style>
 
 </head>
 
 <body>
 
-<nav class="navbar navbar-expand-lg">
+<!-- ================= NAVBAR ================= -->
 
-    <div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-dark">
 
-        <a class="navbar-brand fw-bold"
-           href="recruiterDashboard.jsp">
+    <div class="container-fluid px-4">
+
+        <a class="navbar-brand"
+           href="index.jsp">
 
             <i class="fa-solid fa-graduation-cap"></i>
 
@@ -112,97 +133,27 @@ body {
 
         </a>
 
-
-        <button class="navbar-toggler bg-light"
+        <button class="navbar-toggler"
                 type="button"
                 data-bs-toggle="collapse"
-                data-bs-target="#navbarNav">
+                data-bs-target="#mainNavbar">
 
             <span class="navbar-toggler-icon"></span>
 
         </button>
 
-
         <div class="collapse navbar-collapse"
-             id="navbarNav">
+             id="mainNavbar">
 
             <ul class="navbar-nav ms-auto">
 
-
-                <!-- Dashboard -->
-
                 <li class="nav-item">
 
-                    <a class="nav-link active"
-                       href="recruiterDashboard.jsp">
+                    <a class="nav-link"
+                       href="recruiter_dashboard.jsp">
 
                         <i class="fa-solid fa-house"></i>
-
                         Dashboard
-
-                    </a>
-
-                </li>
-
-
-                <!-- Post Job -->
-
-                <li class="nav-item">
-
-                    <a class="nav-link"
-                       href="posts.jsp">
-
-                        <i class="fa-solid fa-plus"></i>
-
-                        Post Job
-
-                    </a>
-
-                </li>
-
-
-                <!-- Manage Jobs -->
-
-                <li class="nav-item">
-
-                    <a class="nav-link"
-                       href="managejobs.jsp">
-
-                        <i class="fa-solid fa-briefcase"></i>
-
-                        Manage Jobs
-
-                    </a>
-
-                </li>
-
-
-                <!-- Applications -->
-
-                <li class="nav-item">
-
-                    <a class="nav-link"
-                       href="viewApplicationsRecruiter.jsp">
-
-                        <i class="fa-solid fa-users"></i>
-
-                        Applications
-
-                    </a>
-
-                </li>
-
-
-                <!-- Logout -->
-
-                <li class="nav-item ms-3">
-
-                    <a class="btn btn-light"
-                       href="index.jsp">
-
-                        <i class="fa-solid fa-right-from-bracket"></i>
-
-                        Logout
 
                     </a>
 
@@ -217,200 +168,252 @@ body {
 </nav>
 
 
-<!-- MAIN SECTION -->
+<!-- ================= POST JOB ================= -->
 
-<section class="main-section">
+<section class="job-section">
 
     <div class="container">
 
-        <div class="row justify-content-center">
+        <div class="job-card">
 
-            <div class="col-lg-8">
+            <h2 class="job-title">
 
-                <div class="card job-card">
+                <i class="fa-solid fa-briefcase"></i>
 
-                    <div class="card-body p-5">
+                Post New Job
 
-                        <h2 class="text-center text-primary mb-4">
+            </h2>
 
-                            <i class="fa-solid fa-briefcase"></i>
 
-                            Post New Job
+            <!-- IMPORTANT -->
+            <!-- Action must be PostJobServlet -->
 
-                        </h2>
+            <form action="PostJobServlet"
+                  method="post">
 
 
-                        <form action="PostJobServlet"
-                              method="post">
+                <!-- JOB TITLE -->
 
+                <div class="mb-3">
 
-                            <!-- JOB TITLE -->
+                    <label class="form-label">
+                        Job Title
+                    </label>
 
-                            <div class="mb-3">
+                    <input type="text"
+                           class="form-control"
+                           name="title"
+                           placeholder="Example: Java Developer"
+                           required>
 
-                                <label class="form-label">
-                                    Job Title
-                                </label>
+                </div>
 
-                                <input type="text"
-                                       class="form-control"
-                                       name="title"
-                                       placeholder="Example: Java Developer"
-                                       required>
 
-                            </div>
+                <!-- COMPANY -->
 
+                <div class="mb-3">
 
-                            <!-- COMPANY NAME -->
+                    <label class="form-label">
+                        Company Name
+                    </label>
 
-                            <div class="mb-3">
+                    <input type="text"
+                           class="form-control"
+                           name="company"
+                           value="Infosys"
+                           readonly>
 
-                                <label class="form-label">
-                                    Company Name
-                                </label>
+                </div>
 
-                                <input type="text"
-                                       class="form-control"
-                                       name="company"
-                                       value="<%= companyName %>"
-                                       readonly>
 
-                            </div>
+                <!-- ROLE -->
 
+                <div class="mb-3">
 
-                            <!-- ROLE TYPE -->
+                    <label class="form-label">
+                        Role Type
+                    </label>
 
-                            <div class="mb-3">
+                    <select class="form-select"
+                            name="roleType"
+                            id="roleType"
+                            onchange="showOtherRole()"
+                            required>
 
-                                <label class="form-label">
-                                    Role Type
-                                </label>
+                        <option value="">
+                            Select Role
+                        </option>
 
-                                <select class="form-select"
-                                        name="roleType"
-                                        required>
+                        <option value="Software Developer">
+                            Software Developer
+                        </option>
 
-                                    <option value="">
-                                        Select Role
-                                    </option>
+                        <option value="Java Developer">
+                            Java Developer
+                        </option>
 
-                                    <option value="Internship">
-                                        Internship
-                                    </option>
+                        <option value="Python Developer">
+                            Python Developer
+                        </option>
 
-                                    <option value="Job">
-                                        Job
-                                    </option>
+                        <option value="Web Developer">
+                            Web Developer
+                        </option>
 
-                                </select>
+                        <option value="Full Stack Developer">
+                            Full Stack Developer
+                        </option>
 
-                            </div>
+                        <option value="Data Analyst">
+                            Data Analyst
+                        </option>
 
+                        <option value="Data Scientist">
+                            Data Scientist
+                        </option>
 
-                            <!-- REQUIREMENTS -->
+                        <option value="Cloud Engineer">
+                            Cloud Engineer
+                        </option>
 
-                            <div class="mb-3">
+                        <option value="Software Tester">
+                            Software Tester
+                        </option>
 
-                                <label class="form-label">
-                                    Requirements
-                                </label>
+                        <option value="UI UX Designer">
+                            UI/UX Designer
+                        </option>
 
-                                <textarea class="form-control"
-                                          name="requirements"
-                                          rows="4"
-                                          placeholder="Example: Graduate with good communication skills"
-                                          required></textarea>
+                        <option value="Business Analyst">
+                            Business Analyst
+                        </option>
 
-                            </div>
+                        <option value="Intern">
+                            Intern
+                        </option>
 
+                        <option value="Other">
+                            Other
+                        </option>
 
-                            <!-- TECHNICAL SKILLS -->
+                    </select>
 
-                            <div class="mb-3">
+                </div>
 
-                                <label class="form-label">
-                                    Technical Skills
-                                </label>
 
-                                <textarea class="form-control"
-                                          name="technicalSkills"
-                                          rows="3"
-                                          placeholder="Example: Java, SQL, HTML, CSS"
-                                          required></textarea>
+                <!-- OTHER ROLE -->
 
-                            </div>
+                <div class="mb-3"
+                     id="otherRoleDiv">
 
+                    <label class="form-label">
+                        Enter Your Role
+                    </label>
 
-                            <!-- DURATION + SALARY -->
+                    <input type="text"
+                           class="form-control"
+                           name="otherRole"
+                           id="otherRole"
+                           placeholder="Enter your role">
 
-                            <div class="row">
+                </div>
 
-                                <div class="col-md-6 mb-3">
 
-                                    <label class="form-label">
-                                        Duration (Months)
-                                    </label>
+                <!-- REQUIREMENTS -->
 
-                                    <input type="number"
-                                           class="form-control"
-                                           name="duration"
-                                           min="1"
-                                           placeholder="Example: 6">
+                <div class="mb-3">
 
-                                </div>
+                    <label class="form-label">
+                        Requirements
+                    </label>
 
+                    <textarea class="form-control"
+                              name="requirements"
+                              placeholder="Example: Graduate with good communication skills"
+                              required></textarea>
 
-                                <div class="col-md-6 mb-3">
+                </div>
 
-                                    <label class="form-label">
-                                        Salary / Stipend
-                                    </label>
 
-                                    <input type="text"
-                                           class="form-control"
-                                           name="salary"
-                                           placeholder="Example: ₹25,000/month"
-                                           required>
+                <!-- TECHNICAL SKILLS -->
 
-                                </div>
+                <div class="mb-3">
 
-                            </div>
+                    <label class="form-label">
+                        Technical Skills
+                    </label>
 
+                    <textarea class="form-control"
+                              name="technicalSkills"
+                              placeholder="Example: Java, SQL, HTML, CSS"
+                              required></textarea>
 
-                            <!-- DEADLINE -->
+                </div>
 
-                            <div class="mb-4">
 
-                                <label class="form-label">
-                                    Application Deadline
-                                </label>
+                <!-- DURATION + SALARY -->
 
-                                <input type="date"
-                                       class="form-control"
-                                       name="deadline"
-                                       required>
+                <div class="row">
 
-                            </div>
+                    <div class="col-md-6 mb-3">
 
+                        <label class="form-label">
+                            Duration (Months)
+                        </label>
 
-                            <!-- SUBMIT -->
+                        <input type="number"
+                               class="form-control"
+                               name="duration"
+                               placeholder="Example: 6"
+                               min="1">
 
-                            <button type="submit"
-                                    class="btn btn-primary w-100">
+                    </div>
 
-                                <i class="fa-solid fa-paper-plane"></i>
 
-                                Post Job
+                    <div class="col-md-6 mb-3">
 
-                            </button>
+                        <label class="form-label">
+                            Salary / Stipend
+                        </label>
 
-                        </form>
+                        <input type="text"
+                               class="form-control"
+                               name="salary"
+                               placeholder="Example: ₹25,000/month">
 
                     </div>
 
                 </div>
 
-            </div>
+
+                <!-- DEADLINE -->
+
+                <div class="mb-4">
+
+                    <label class="form-label">
+                        Application Deadline
+                    </label>
+
+                    <input type="date"
+                           class="form-control"
+                           name="deadline"
+                           required>
+
+                </div>
+
+
+                <!-- SUBMIT -->
+
+                <button type="submit"
+                        class="btn-post">
+
+                    <i class="fa-solid fa-paper-plane"></i>
+
+                    Post Job
+
+                </button>
+
+            </form>
 
         </div>
 
@@ -419,31 +422,37 @@ body {
 </section>
 
 
-<!-- FOOTER -->
+<script>
 
-<footer class="footer">
+function showOtherRole() {
 
-    <div class="container">
+    var role =
+        document.getElementById("roleType").value;
 
-        <h5>
+    var otherDiv =
+        document.getElementById("otherRoleDiv");
 
-            <i class="fa-solid fa-graduation-cap"></i>
+    var otherInput =
+        document.getElementById("otherRole");
 
-            Campus Placement Portal
 
-        </h5>
+    if (role === "Other") {
 
-        <p>
-            Empowering recruiters to hire talented students.
-        </p>
+        otherDiv.style.display = "block";
 
-        <p>
-            © 2026 Campus Placement Portal
-        </p>
+        otherInput.required = true;
 
-    </div>
+    } else {
 
-</footer>
+        otherDiv.style.display = "none";
+
+        otherInput.required = false;
+
+        otherInput.value = "";
+    }
+}
+
+</script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">

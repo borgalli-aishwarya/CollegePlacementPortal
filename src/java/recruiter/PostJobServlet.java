@@ -23,31 +23,30 @@ public class PostJobServlet extends HttpServlet {
 
         response.setContentType("text/html;charset=UTF-8");
 
-        // Get existing session
+        // ================= SESSION =================
+
         HttpSession session = request.getSession(false);
 
-        // Check recruiter login
-        if (session == null
-                || session.getAttribute("recruiterId") == null) {
+        if (session == null ||
+                session.getAttribute("recruiterId") == null) {
 
             response.sendRedirect("recruiter_login.jsp");
             return;
         }
 
-        // Get recruiter ID
         Integer recruiterId =
                 (Integer) session.getAttribute("recruiterId");
 
-        // Get company name from session
         String companyName =
                 (String) session.getAttribute("companyName");
 
-        // Get form values
-        String title =
-                request.getParameter("title");
+        // ================= FORM VALUES =================
 
-        String roleType =
-                request.getParameter("roleType");
+        String title = request.getParameter("title");
+
+        String roleType = request.getParameter("roleType");
+
+        String otherRole = request.getParameter("otherRole");
 
         String requirements =
                 request.getParameter("requirements");
@@ -64,34 +63,63 @@ public class PostJobServlet extends HttpServlet {
         String deadline =
                 request.getParameter("deadline");
 
+        // ================= ROLE CHECK =================
 
-        // Basic validation
-        if (title == null
-                || title.trim().isEmpty()
-                || roleType == null
-                || roleType.trim().isEmpty()
-                || companyName == null
-                || companyName.trim().isEmpty()) {
+        if (roleType == null ||
+                roleType.trim().isEmpty() ||
+                roleType.equals("Select Role")) {
 
             response.getWriter().println(
-                    "<h3>Required job details are missing.</h3>"
+                    "<h3>Please select a Role.</h3>"
             );
-
             return;
         }
 
+        // If Other is selected, use manually entered role
+        if (roleType.equals("Other")) {
+
+            if (otherRole == null ||
+                    otherRole.trim().isEmpty()) {
+
+                response.getWriter().println(
+                        "<h3>Please enter your role.</h3>"
+                );
+                return;
+            }
+
+            roleType = otherRole.trim();
+        }
+
+        // ================= BASIC VALIDATION =================
+
+        if (title == null ||
+                title.trim().isEmpty()) {
+
+            response.getWriter().println(
+                    "<h3>Please enter Job Title.</h3>"
+            );
+            return;
+        }
+
+        if (companyName == null ||
+                companyName.trim().isEmpty()) {
+
+            response.getWriter().println(
+                    "<h3>Company name is missing from session.</h3>"
+            );
+            return;
+        }
+
+        // ================= DATABASE =================
 
         Connection con = null;
         PreparedStatement ps = null;
 
-
         try {
 
-            // Database connection
             database db = new database();
 
             con = db.connectDB();
-
 
             if (con == null) {
 
@@ -102,8 +130,8 @@ public class PostJobServlet extends HttpServlet {
                 return;
             }
 
+            // ================= INSERT =================
 
-            // SQL query
             String sql =
                     "INSERT INTO jobs "
                     + "(recruiter_id, title, company, role_type, "
@@ -111,52 +139,29 @@ public class PostJobServlet extends HttpServlet {
                     + "duration_months, stipend_salary, deadline) "
                     + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-
             ps = con.prepareStatement(sql);
 
-
-            // Recruiter ID
+            // recruiter_id
             ps.setInt(1, recruiterId);
 
+            // title
+            ps.setString(2, title.trim());
 
-            // Job title
-            ps.setString(
-                    2,
-                    title.trim()
-            );
+            // company
+            ps.setString(3, companyName.trim());
 
+            // role
+            ps.setString(4, roleType);
 
-            // Company
-            ps.setString(
-                    3,
-                    companyName.trim()
-            );
+            // requirements
+            ps.setString(5, requirements);
 
+            // technical skills
+            ps.setString(6, technicalSkills);
 
-            // Role type
-            ps.setString(
-                    4,
-                    roleType
-            );
-
-
-            // Requirements
-            ps.setString(
-                    5,
-                    requirements
-            );
-
-
-            // Technical skills
-            ps.setString(
-                    6,
-                    technicalSkills
-            );
-
-
-            // Duration
-            if (duration == null
-                    || duration.trim().isEmpty()) {
+            // duration
+            if (duration == null ||
+                    duration.trim().isEmpty()) {
 
                 ps.setNull(
                         7,
@@ -167,21 +172,16 @@ public class PostJobServlet extends HttpServlet {
 
                 ps.setInt(
                         7,
-                        Integer.parseInt(duration)
+                        Integer.parseInt(duration.trim())
                 );
             }
 
+            // salary
+            ps.setString(8, salary);
 
-            // Salary / stipend
-            ps.setString(
-                    8,
-                    salary
-            );
-
-
-            // Deadline
-            if (deadline == null
-                    || deadline.trim().isEmpty()) {
+            // deadline
+            if (deadline == null ||
+                    deadline.trim().isEmpty()) {
 
                 ps.setNull(
                         9,
@@ -196,13 +196,10 @@ public class PostJobServlet extends HttpServlet {
                 );
             }
 
+            // ================= EXECUTE =================
 
-            // Execute INSERT
-            int result =
-                    ps.executeUpdate();
+            int result = ps.executeUpdate();
 
-
-            // Successful job posting
             if (result > 0) {
 
                 response.sendRedirect(
@@ -212,10 +209,9 @@ public class PostJobServlet extends HttpServlet {
             } else {
 
                 response.getWriter().println(
-                        "<h3>Job Posting Failed</h3>"
+                        "<h3>Job Posting Failed.</h3>"
                 );
             }
-
 
         } catch (NumberFormatException e) {
 
@@ -224,9 +220,8 @@ public class PostJobServlet extends HttpServlet {
             );
 
             response.getWriter().println(
-                    "<p>Duration must contain a valid number.</p>"
+                    "<p>Duration must be a number, for example 6.</p>"
             );
-
 
         } catch (IllegalArgumentException e) {
 
@@ -235,9 +230,8 @@ public class PostJobServlet extends HttpServlet {
             );
 
             response.getWriter().println(
-                    "<p>Please select a valid application deadline.</p>"
+                    "<p>Please select a valid date.</p>"
             );
-
 
         } catch (Exception e) {
 
@@ -247,44 +241,28 @@ public class PostJobServlet extends HttpServlet {
                     "<h3>Error While Posting Job</h3>"
             );
 
-            response.getWriter().println(
-                    "<pre>"
-            );
+            response.getWriter().println("<pre>");
 
             e.printStackTrace(
                     response.getWriter()
             );
 
-            response.getWriter().println(
-                    "</pre>"
-            );
-
+            response.getWriter().println("</pre>");
 
         } finally {
 
-            // Close PreparedStatement
             try {
-
                 if (ps != null) {
                     ps.close();
                 }
-
             } catch (Exception e) {
-
-                e.printStackTrace();
             }
 
-
-            // Close Connection
             try {
-
                 if (con != null) {
                     con.close();
                 }
-
             } catch (Exception e) {
-
-                e.printStackTrace();
             }
         }
     }

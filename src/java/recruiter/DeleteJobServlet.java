@@ -21,63 +21,95 @@ public class DeleteJobServlet extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
+        response.setContentType("text/html;charset=UTF-8");
 
-        Integer recruiterId =
-                (Integer) session.getAttribute("recruiterId");
+        // Get existing session
+        HttpSession session = request.getSession(false);
 
-        if (recruiterId == null) {
+        // Check recruiter login
+        if (session == null ||
+            session.getAttribute("recruiterId") == null) {
+
             response.sendRedirect("recruiter_login.jsp");
             return;
         }
 
+        // Get recruiter ID
+        Integer recruiterId =
+                (Integer) session.getAttribute("recruiterId");
+
+        // Get job ID
         String id = request.getParameter("id");
+
+        // Check job ID
+        if (id == null || id.trim().isEmpty()) {
+
+            response.sendRedirect("ManageJobsServlet?deleted=0");
+            return;
+        }
+
+        Connection con = null;
+        PreparedStatement ps = null;
 
         try {
 
+            int jobId = Integer.parseInt(id);
+
+            // Connect database
             database db = new database();
-            Connection con = db.connectDB();
 
-            // First delete applications associated with this job
-            String deleteAppSql = "DELETE FROM applications WHERE job_id = ?";
-            PreparedStatement psApp = con.prepareStatement(deleteAppSql);
-            psApp.setInt(1, Integer.parseInt(id));
-            psApp.executeUpdate();
-            psApp.close();
+            con = db.connectDB();
 
+            if (con == null) {
+
+                response.getWriter().println(
+                        "<h3>Database connection failed.</h3>"
+                );
+
+                return;
+            }
+
+            /*
+             * Delete only the job belonging to the
+             * currently logged-in recruiter.
+             */
             String sql =
-                    "DELETE FROM jobs "
-                    + "WHERE id = ? AND recruiter_id = ?";
+                    "DELETE FROM jobs " +
+                    "WHERE id = ? AND recruiter_id = ?";
 
-            PreparedStatement ps =
-                    con.prepareStatement(sql);
+            ps = con.prepareStatement(sql);
 
-            ps.setInt(1, Integer.parseInt(id));
+            ps.setInt(1, jobId);
             ps.setInt(2, recruiterId);
 
             int result = ps.executeUpdate();
 
-            ps.close();
-            con.close();
-
             if (result > 0) {
 
+                // Job deleted successfully
                 response.sendRedirect(
                         "ManageJobsServlet?deleted=1"
                 );
 
             } else {
 
+                // No matching job found
                 response.sendRedirect(
                         "ManageJobsServlet?deleted=0"
                 );
             }
 
+        } catch (NumberFormatException e) {
+
+            response.sendRedirect(
+                    "ManageJobsServlet?deleted=0"
+            );
+
         } catch (Exception e) {
 
             e.printStackTrace();
 
-            response.setContentType("text/html");
+            response.setContentType("text/html;charset=UTF-8");
 
             response.getWriter().println(
                     "<h3>Error deleting job</h3>"
@@ -94,6 +126,28 @@ public class DeleteJobServlet extends HttpServlet {
             response.getWriter().println(
                     "</pre>"
             );
+
+        } finally {
+
+            try {
+
+                if (ps != null) {
+                    ps.close();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+
+                if (con != null) {
+                    con.close();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }
