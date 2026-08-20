@@ -248,6 +248,35 @@ p {
     background: #2345d9;
     color: white;
 }
+.partners-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 16px 50px;
+
+    border: 2px solid white;
+    border-radius: 35px;
+
+    color: white;
+    background: transparent;
+
+    text-decoration: none;
+
+    font-size: 20px;
+    font-weight: 500;
+
+    transition: all 0.3s ease;
+}
+
+.partners-btn:hover {
+    background: white;
+    color: #4b4ee8;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
 
 /* ================ FOOTER ================ */
 .main-footer {
@@ -458,7 +487,9 @@ p {
                 <p>Connecting talented students with leading companies for successful career opportunities.</p>
                 <div class="hero-btns-container">
                     <a href="#" class="btn btn-start">Get Started</a>
-                    <a href="#" class="btn btn-partner">Our Partners</a>
+                    <a href="companies.jsp" class="partners-btn">
+    Our Partners
+</a>
                 </div>
             </div>
             <!-- Right Side -->

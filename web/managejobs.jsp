@@ -816,20 +816,19 @@
                 <!-- DELETE -->
                 <!-- ================================================= -->
 
-              <form action="DeleteJobServlet"
+<form action="DeleteJobServlet"
       method="post"
       style="display:inline;"
       onsubmit="return confirm('Are you sure you want to delete this job?');">
 
     <input type="hidden"
-           name="job_id"
+           name="id"
            value="<%= j.getId() %>">
 
     <button type="submit"
             class="btn btn-danger">
 
         <i class="fa-solid fa-trash"></i>
-
         Delete
 
     </button>

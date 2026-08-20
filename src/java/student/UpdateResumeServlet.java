@@ -28,53 +28,104 @@ import modell.database;
 )
 public class UpdateResumeServlet extends HttpServlet {
 
+    // Permanent upload location on your computer
+    private static final String UPLOAD_FOLDER =
+            System.getProperty("user.home")
+            + java.io.File.separator
+            + "CampusPlacementPortal"
+            + java.io.File.separator
+            + "resumes";
+
+
     @Override
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession(false);
+        response.setContentType("text/html;charset=UTF-8");
 
-        // Check student login
+        // ==========================================
+        // CHECK STUDENT LOGIN
+        // ==========================================
+
+        HttpSession session =
+                request.getSession(false);
+
         if (session == null ||
             session.getAttribute("studentId") == null) {
 
-            response.sendRedirect("student_login.jsp");
+            response.sendRedirect(
+                    "student_login.jsp"
+            );
+
             return;
         }
 
+
+        // ==========================================
+        // GET STUDENT ID
+        // ==========================================
+
         Integer studentId =
-                (Integer) session.getAttribute("studentId");
+                (Integer) session.getAttribute(
+                        "studentId"
+                );
 
-        Part resumePart = request.getPart("resume");
 
-        // Check whether file was selected
+        // ==========================================
+        // GET UPLOADED FILE
+        // ==========================================
+
+        Part resumePart =
+                request.getPart("resume");
+
+
         if (resumePart == null ||
             resumePart.getSize() == 0) {
 
             response.sendRedirect(
                     "studentDashboard.jsp?error=Please select a resume"
             );
+
             return;
         }
 
-        String originalFileName =
-                Paths.get(resumePart.getSubmittedFileName())
-                      .getFileName()
-                      .toString();
 
-        // Get file extension
+        // ==========================================
+        // GET ORIGINAL FILE NAME
+        // ==========================================
+
+        String originalFileName =
+                Paths.get(
+                        resumePart.getSubmittedFileName()
+                )
+                .getFileName()
+                .toString();
+
+
+        // ==========================================
+        // GET FILE EXTENSION
+        // ==========================================
+
         String extension = "";
 
-        int dotIndex = originalFileName.lastIndexOf(".");
+        int dotIndex =
+                originalFileName.lastIndexOf(".");
+
 
         if (dotIndex >= 0) {
+
             extension =
-                    originalFileName.substring(dotIndex)
+                    originalFileName
+                    .substring(dotIndex)
                     .toLowerCase();
         }
 
-        // Allow only PDF, DOC and DOCX
+
+        // ==========================================
+        // ALLOW PDF, DOC AND DOCX
+        // ==========================================
+
         if (!extension.equals(".pdf") &&
             !extension.equals(".doc") &&
             !extension.equals(".docx")) {
@@ -82,53 +133,66 @@ public class UpdateResumeServlet extends HttpServlet {
             response.sendRedirect(
                     "studentDashboard.jsp?error=Only PDF, DOC and DOCX files are allowed"
             );
+
             return;
         }
 
+
+        Connection con = null;
+        PreparedStatement ps = null;
+
         try {
 
-            /*
-             * Create upload directory inside
-             * the deployed web application.
-             */
-            String uploadPath =
-                    getServletContext().getRealPath(
-                            "/uploads/resumes"
-                    );
+            // ==========================================
+            // CREATE PERMANENT UPLOAD DIRECTORY
+            // ==========================================
 
-            if (uploadPath == null) {
+            Path uploadDirectory =
+                    Paths.get(UPLOAD_FOLDER);
+
+
+            if (!Files.exists(uploadDirectory)) {
+
+                Files.createDirectories(
+                        uploadDirectory
+                );
+            }
+
+
+            // ==========================================
+            // CHECK DIRECTORY
+            // ==========================================
+
+            if (!Files.isDirectory(uploadDirectory)) {
 
                 response.getWriter().println(
-                        "<h3>Unable to create upload directory.</h3>"
+                        "<h3>Resume upload directory is not valid.</h3>"
                 );
 
                 return;
             }
 
-            Path uploadDirectory =
-                    Paths.get(uploadPath);
 
-            // Create folder automatically
-            Files.createDirectories(uploadDirectory);
+            // ==========================================
+            // GENERATE UNIQUE FILE NAME
+            // ==========================================
 
-
-            /*
-             * Generate unique file name.
-             * This prevents two students having
-             * the same resume file name.
-             */
             String newFileName =
-                    UUID.randomUUID().toString()
+                    UUID.randomUUID()
+                    .toString()
                     + extension;
 
 
             Path filePath =
-                    uploadDirectory.resolve(newFileName);
+                    uploadDirectory.resolve(
+                            newFileName
+                    );
 
 
-            /*
-             * Save uploaded file.
-             */
+            // ==========================================
+            // SAVE FILE
+            // ==========================================
+
             try (InputStream inputStream =
                     resumePart.getInputStream()) {
 
@@ -139,25 +203,39 @@ public class UpdateResumeServlet extends HttpServlet {
             }
 
 
+            // ==========================================
+            // STORE FILE NAME IN DATABASE
+            // ==========================================
+
             /*
-             * Store only the web path in database.
+             * We store the unique file name.
              *
              * Example:
-             * uploads/resumes/abc123.pdf
+             * 8f4d9c2a-1234-4567.pdf
              */
+
             String resumeUrl =
-                    "uploads/resumes/" + newFileName;
+                    newFileName;
 
 
-            /*
-             * Update student's resume_url.
-             */
-            database db = new database();
+            // ==========================================
+            // DATABASE CONNECTION
+            // ==========================================
 
-            Connection con =
+            database db =
+                    new database();
+
+            con =
                     db.connectDB();
 
+
             if (con == null) {
+
+                // Delete uploaded file if DB connection fails
+                try {
+                    Files.deleteIfExists(filePath);
+                } catch (Exception ignored) {
+                }
 
                 response.getWriter().println(
                         "<h3>Database Connection Failed</h3>"
@@ -167,26 +245,39 @@ public class UpdateResumeServlet extends HttpServlet {
             }
 
 
+            // ==========================================
+            // UPDATE STUDENT RESUME
+            // ==========================================
+
             String sql =
-                    "UPDATE students " +
-                    "SET resume_url = ? " +
-                    "WHERE id = ?";
+                    "UPDATE students "
+                    + "SET resume_url = ? "
+                    + "WHERE id = ?";
 
 
-            PreparedStatement ps =
+            ps =
                     con.prepareStatement(sql);
 
-            ps.setString(1, resumeUrl);
-            ps.setInt(2, studentId);
+
+            ps.setString(
+                    1,
+                    resumeUrl
+            );
+
+
+            ps.setInt(
+                    2,
+                    studentId
+            );
 
 
             int result =
                     ps.executeUpdate();
 
 
-            ps.close();
-            con.close();
-
+            // ==========================================
+            // CHECK RESULT
+            // ==========================================
 
             if (result > 0) {
 
@@ -195,6 +286,12 @@ public class UpdateResumeServlet extends HttpServlet {
                 );
 
             } else {
+
+                // Database update failed
+                try {
+                    Files.deleteIfExists(filePath);
+                } catch (Exception ignored) {
+                }
 
                 response.sendRedirect(
                         "studentDashboard.jsp?error=Resume upload failed"
@@ -206,10 +303,18 @@ public class UpdateResumeServlet extends HttpServlet {
 
             e.printStackTrace();
 
-            response.setContentType("text/html");
+            response.setContentType(
+                    "text/html;charset=UTF-8"
+            );
 
             response.getWriter().println(
                     "<h3>Resume Upload Error</h3>"
+            );
+
+            response.getWriter().println(
+                    "<p>"
+                    + e.getMessage()
+                    + "</p>"
             );
 
             response.getWriter().println(
@@ -223,6 +328,38 @@ public class UpdateResumeServlet extends HttpServlet {
             response.getWriter().println(
                     "</pre>"
             );
+
+
+        } finally {
+
+            // ==========================================
+            // CLOSE PREPARED STATEMENT
+            // ==========================================
+
+            try {
+
+                if (ps != null) {
+                    ps.close();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            // ==========================================
+            // CLOSE DATABASE CONNECTION
+            // ==========================================
+
+            try {
+
+                if (con != null) {
+                    con.close();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

@@ -34,6 +34,9 @@ public class ManageJobsServlet extends HttpServlet {
             return;
         }
 
+        Integer recruiterId =
+                (Integer) session.getAttribute("recruiterId");
+
         List<job> jobs = new ArrayList<job>();
 
         Connection con = null;
@@ -46,6 +49,7 @@ public class ManageJobsServlet extends HttpServlet {
             con = db.connectDB();
 
             if (con == null) {
+
                 request.setAttribute(
                         "error",
                         "Database connection failed."
@@ -59,16 +63,22 @@ public class ManageJobsServlet extends HttpServlet {
             }
 
             /*
-             * Show ALL jobs.
+             * IMPORTANT:
+             * Only show jobs belonging to the
+             * currently logged-in recruiter.
              */
             String sql =
                     "SELECT id, recruiter_id, title, company, " +
                     "role_type, requirements, technical_skills, " +
                     "duration_months, stipend_salary, deadline " +
                     "FROM jobs " +
+                    "WHERE recruiter_id = ? " +
                     "ORDER BY id DESC";
 
             ps = con.prepareStatement(sql);
+
+            ps.setInt(1, recruiterId);
+
             rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -76,20 +86,39 @@ public class ManageJobsServlet extends HttpServlet {
                 job j = new job();
 
                 j.setId(rs.getInt("id"));
-                j.setRecruiterId(rs.getInt("recruiter_id"));
-                j.setTitle(rs.getString("title"));
-                j.setCompany(rs.getString("company"));
-                j.setRoleType(rs.getString("role_type"));
-                j.setRequirements(rs.getString("requirements"));
+
+                j.setRecruiterId(
+                        rs.getInt("recruiter_id")
+                );
+
+                j.setTitle(
+                        rs.getString("title")
+                );
+
+                j.setCompany(
+                        rs.getString("company")
+                );
+
+                j.setRoleType(
+                        rs.getString("role_type")
+                );
+
+                j.setRequirements(
+                        rs.getString("requirements")
+                );
+
                 j.setTechnicalSkills(
                         rs.getString("technical_skills")
                 );
+
                 j.setDurationMonths(
                         rs.getInt("duration_months")
                 );
+
                 j.setStipendSalary(
                         rs.getString("stipend_salary")
                 );
+
                 j.setDeadline(
                         rs.getDate("deadline")
                 );
@@ -110,18 +139,24 @@ public class ManageJobsServlet extends HttpServlet {
 
             try {
                 if (rs != null) rs.close();
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
 
             try {
                 if (ps != null) ps.close();
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
 
             try {
                 if (con != null) con.close();
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
         }
 
-        request.setAttribute("jobs", jobs);
+        request.setAttribute(
+                "jobs",
+                jobs
+        );
 
         request.getRequestDispatcher(
                 "managejobs.jsp"
@@ -146,7 +181,8 @@ public class ManageJobsServlet extends HttpServlet {
         Integer recruiterId =
                 (Integer) session.getAttribute("recruiterId");
 
-        String action = request.getParameter("action");
+        String action =
+                request.getParameter("action");
 
         Connection con = null;
         PreparedStatement ps = null;
@@ -154,34 +190,54 @@ public class ManageJobsServlet extends HttpServlet {
         try {
 
             database db = new database();
+
             con = db.connectDB();
 
             if (con == null) {
+
                 response.sendRedirect(
                         "ManageJobsServlet?error=db"
                 );
+
                 return;
             }
 
-            /*
+
+            /* =====================================================
              * DELETE JOB
-             */
+             * ===================================================== */
+
             if ("delete".equals(action)) {
 
-                int jobId = Integer.parseInt(
-                        request.getParameter("id")
-                );
+                String id =
+                        request.getParameter("id");
+
+                if (id == null ||
+                    id.trim().isEmpty()) {
+
+                    response.sendRedirect(
+                            "ManageJobsServlet?deleted=0"
+                    );
+
+                    return;
+                }
+
+                int jobId =
+                        Integer.parseInt(id);
+
 
                 /*
-                 * First delete applications belonging
-                 * to this job.
+                 * Delete applications only if the job belongs
+                 * to the currently logged-in recruiter.
                  */
                 String deleteApplications =
                         "DELETE FROM applications " +
                         "WHERE job_id = ? " +
-                        "AND job_id IN " +
-                        "(SELECT id FROM jobs " +
-                        " WHERE id = ? AND recruiter_id = ?)";
+                        "AND EXISTS (" +
+                        "SELECT 1 FROM jobs " +
+                        "WHERE jobs.id = ? " +
+                        "AND jobs.recruiter_id = ?" +
+                        ")";
 
                 ps = con.prepareStatement(
                         deleteApplications
@@ -194,20 +250,30 @@ public class ManageJobsServlet extends HttpServlet {
                 ps.executeUpdate();
 
                 ps.close();
+                ps = null;
+
 
                 /*
-                 * Then delete the job.
+                 * Now delete the job.
+                 *
+                 * recruiter_id check prevents one recruiter
+                 * from deleting another recruiter's job.
                  */
                 String deleteJob =
                         "DELETE FROM jobs " +
-                        "WHERE id = ? AND recruiter_id = ?";
+                        "WHERE id = ? " +
+                        "AND recruiter_id = ?";
 
-                ps = con.prepareStatement(deleteJob);
+                ps = con.prepareStatement(
+                        deleteJob
+                );
 
                 ps.setInt(1, jobId);
                 ps.setInt(2, recruiterId);
 
-                int result = ps.executeUpdate();
+                int result =
+                        ps.executeUpdate();
+
 
                 if (result > 0) {
 
@@ -218,7 +284,7 @@ public class ManageJobsServlet extends HttpServlet {
                 } else {
 
                     response.sendRedirect(
-                            "ManageJobsServlet?error=delete"
+                            "ManageJobsServlet?deleted=0"
                     );
                 }
 
@@ -226,14 +292,27 @@ public class ManageJobsServlet extends HttpServlet {
             }
 
 
-            /*
+            /* =====================================================
              * UPDATE JOB
-             */
+             * ===================================================== */
+
             if ("update".equals(action)) {
 
-                int jobId = Integer.parseInt(
-                        request.getParameter("id")
-                );
+                String id =
+                        request.getParameter("id");
+
+                if (id == null ||
+                    id.trim().isEmpty()) {
+
+                    response.sendRedirect(
+                            "ManageJobsServlet?updated=0"
+                    );
+
+                    return;
+                }
+
+                int jobId =
+                        Integer.parseInt(id);
 
                 String title =
                         request.getParameter("title");
@@ -248,7 +327,9 @@ public class ManageJobsServlet extends HttpServlet {
                         request.getParameter("requirements");
 
                 String technicalSkills =
-                        request.getParameter("technicalSkills");
+                        request.getParameter(
+                                "technicalSkills"
+                        );
 
                 String duration =
                         request.getParameter("duration");
@@ -262,11 +343,17 @@ public class ManageJobsServlet extends HttpServlet {
 
                 String sql =
                         "UPDATE jobs SET " +
-                        "title=?, company=?, role_type=?, " +
-                        "requirements=?, technical_skills=?, " +
-                        "duration_months=?, stipend_salary=?, " +
-                        "deadline=? " +
-                        "WHERE id=? AND recruiter_id=?";
+                        "title = ?, " +
+                        "company = ?, " +
+                        "role_type = ?, " +
+                        "requirements = ?, " +
+                        "technical_skills = ?, " +
+                        "duration_months = ?, " +
+                        "stipend_salary = ?, " +
+                        "deadline = ? " +
+                        "WHERE id = ? " +
+                        "AND recruiter_id = ?";
+
 
                 ps = con.prepareStatement(sql);
 
@@ -276,6 +363,10 @@ public class ManageJobsServlet extends HttpServlet {
                 ps.setString(4, requirements);
                 ps.setString(5, technicalSkills);
 
+
+                /*
+                 * Duration
+                 */
                 if (duration == null ||
                     duration.trim().isEmpty()) {
 
@@ -288,12 +379,25 @@ public class ManageJobsServlet extends HttpServlet {
 
                     ps.setInt(
                             6,
-                            Integer.parseInt(duration)
+                            Integer.parseInt(
+                                    duration.trim()
+                            )
                     );
                 }
 
-                ps.setString(7, salary);
 
+                /*
+                 * Salary
+                 */
+                ps.setString(
+                        7,
+                        salary
+                );
+
+
+                /*
+                 * Deadline
+                 */
                 if (deadline == null ||
                     deadline.trim().isEmpty()) {
 
@@ -306,14 +410,30 @@ public class ManageJobsServlet extends HttpServlet {
 
                     ps.setDate(
                             8,
-                            java.sql.Date.valueOf(deadline)
+                            java.sql.Date.valueOf(
+                                    deadline.trim()
+                            )
                     );
                 }
 
-                ps.setInt(9, jobId);
-                ps.setInt(10, recruiterId);
 
-                int result = ps.executeUpdate();
+                /*
+                 * Job ID + recruiter ID
+                 */
+                ps.setInt(
+                        9,
+                        jobId
+                );
+
+                ps.setInt(
+                        10,
+                        recruiterId
+                );
+
+
+                int result =
+                        ps.executeUpdate();
+
 
                 if (result > 0) {
 
@@ -324,14 +444,29 @@ public class ManageJobsServlet extends HttpServlet {
                 } else {
 
                     response.sendRedirect(
-                            "ManageJobsServlet?error=update"
+                            "ManageJobsServlet?updated=0"
                     );
                 }
 
                 return;
             }
 
-            response.sendRedirect("ManageJobsServlet");
+
+            /*
+             * Unknown action
+             */
+            response.sendRedirect(
+                    "ManageJobsServlet"
+            );
+
+
+        } catch (NumberFormatException e) {
+
+            e.printStackTrace();
+
+            response.sendRedirect(
+                    "ManageJobsServlet?error=invalid"
+            );
 
         } catch (Exception e) {
 
@@ -344,12 +479,22 @@ public class ManageJobsServlet extends HttpServlet {
         } finally {
 
             try {
-                if (ps != null) ps.close();
-            } catch (Exception e) {}
+
+                if (ps != null) {
+                    ps.close();
+                }
+
+            } catch (Exception e) {
+            }
 
             try {
-                if (con != null) con.close();
-            } catch (Exception e) {}
+
+                if (con != null) {
+                    con.close();
+                }
+
+            } catch (Exception e) {
+            }
         }
     }
 }
